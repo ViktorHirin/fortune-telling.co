@@ -1,0 +1,22 @@
+.payment-form {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+    margin: auto;
+    padding: 30px 20px;
+  }
+  
+  .payment-full-width {
+    padding: 20px 0px;
+    width: 100%;
+  }
+
+.mat-elevation-z8{
+    margin: auto;
+}
+@media screen and (max-width: 600px) {
+  .payment-full-width{
+    padding: 5px 0px;
+    width: 100%;
+}
+}

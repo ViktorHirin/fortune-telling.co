@@ -1,0 +1,32 @@
+<h2 class="title-list text-center">{{'Settings'|translate}}</h2>
+<br>
+
+<mat-divider></mat-divider>
+<br>
+<div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px">
+    <div fxFlex="100">
+        <div class="mat-elevation-z8">
+            <mat-table [dataSource]="listCommission" matSort>
+                <ng-container matColumnDef="option_name">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>{{'Name'|translate}} </mat-header-cell>
+                    <mat-cell *matCellDef="let commission"> {{commission.option_name}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="option_value">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>{{'Value'|translate}} </mat-header-cell>
+                    <mat-cell *matCellDef="let commission"> {{commission.option_value}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="action">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>{{'Action'|translate}} </mat-header-cell>
+                    <mat-cell *matCellDef="let commission"> <button type="button" class="btn btn-primary"
+                            (click)="editOptions(commission)" color="primary"><i class="fa fa-pencil"></i></button>
+                    </mat-cell>
+                </ng-container>
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </mat-table>
+            <mat-paginator [pageSizeOptions]="[10, 20,50,100,500]"></mat-paginator>
+            <br>
+            <mat-divider></mat-divider>
+        </div>
+    </div>
+</div>

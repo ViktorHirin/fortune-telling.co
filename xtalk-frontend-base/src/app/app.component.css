@@ -1,0 +1,38 @@
+
+.loading-container {
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0,0,0,0.7);
+    z-index: 5;
+  }
+.box-action
+{
+text-align: center;
+width: 100%;
+position: absolute;
+top: 65%;
+left: 50%;
+-webkit-transform: translate(-50%, -50%);
+transform: translate(-50%, -50%);
+color: #fff;
+padding: 20px;
+display: flex;
+justify-content: space-around;
+}
+.full-width
+{
+    width: 100%;
+}
+.loading-container .mat-progress-spinner{
+    position: absolute !important;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    left: 50%;
+    -ms-transform: translateX(-50%);
+    transform: translateX(-50%);
+}

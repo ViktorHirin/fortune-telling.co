@@ -1,0 +1,55 @@
+<h2 class="title-list text-center">Pay out</h2>
+<br>
+<mat-divider></mat-divider>
+<br>
+<div fxLayout="row wrap" fxLayoutAlign="space-between center" fxLayoutGap="20px">
+    <div fxFlex="100"> 
+        <div class="mat-elevation-z8">
+            <mat-table [dataSource]="listPayouts" matSort >
+                <!-- Name Column -->
+                <ng-container matColumnDef="name" >
+                    <mat-header-cell *matHeaderCellDef mat-sort-header > {{'Name'|translate}} </mat-header-cell>
+                    <mat-cell *matCellDef="let payoutItem" > {{payoutItem.users[0]?.firstName}} {{payoutItem.users[0]?.lastName}} </mat-cell>
+                </ng-container>
+                 <!--Email Column -->
+                 <ng-container matColumnDef="email">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header > {{'Email'|translate}} </mat-header-cell>
+                    <mat-cell *matCellDef="let payoutItem"> {{payoutItem.users[0]?.email}}</mat-cell>
+                </ng-container>
+
+                <!-- Role Column -->
+                <ng-container matColumnDef="token">
+                    <mat-header-cell *matHeaderCellDef  >  {{'Total Earned'|translate}} </mat-header-cell>
+                    <mat-cell *matCellDef="let payoutItem" > {{payoutItem.users[0]?.token + payoutItem.approved}}</mat-cell>
+                </ng-container>
+
+                <!-- Status Column -->
+                <ng-container matColumnDef="reject">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header > {{'Paid Out'|translate}}  </mat-header-cell>
+                    <mat-cell *matCellDef="let payoutItem" >{{payoutItem.approved}} </mat-cell>
+                </ng-container>
+
+                <!-- Token Column -->
+                <ng-container matColumnDef="pending">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header > {{'Pending'|translate}}  </mat-header-cell>
+                    <mat-cell *matCellDef="let payoutItem" > {{payoutItem.pending}} </mat-cell>
+                </ng-container>
+                 <!-- Token Column -->
+                 <ng-container matColumnDef="commission">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header > {{'Commission'|translate}} </mat-header-cell>
+                    <mat-cell *matCellDef="let payoutItem" > {{commission}} </mat-cell>
+                </ng-container>
+                <!-- Action Column-->
+                <ng-container matColumnDef="actions">
+                    <mat-header-cell  *matHeaderCellDef >{{'Actions'|translate}}  </mat-header-cell>
+                    <mat-cell *matCellDef="let payoutItem" fxLayout="row wrap" >
+                        <button type="button" class="btn btn-primary" (click)="details(payoutItem._id)" color="primary"><i class="fa fa-eye" aria-hidden="true"></i></button>                      
+                    </mat-cell>
+                  </ng-container>
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </mat-table>
+        <mat-paginator [length]="resultsLength" [pageSizeOptions]="[30,50,100,500]"></mat-paginator>
+        </div>
+   </div>
+</div>

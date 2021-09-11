@@ -1,0 +1,40 @@
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+        <span> <a [routerLink]='["/dashboard"]' class="logo"><img src="{{pageConfig.getLogo()}}"></a> </span>
+
+        <div fxFlex fxLayout="row" fxLayoutAlign="flex-end">
+            <ul fxLayout="row" fxLayoutGap="20px">
+                <li>
+                    <button mat-icon-button [matMenuTriggerFor]="settings">
+                        <mat-icon>{{'settings'|translate}}</mat-icon>
+                    </button>
+                    <mat-menu #settings="matMenu">
+                        <button mat-menu-item (click)="changePassword()">
+                            <mat-icon >{{'vpn_key'|translate}}</mat-icon>
+                            {{'Change Password'|translate}}
+                        </button>
+                    </mat-menu>
+                </li>
+                <li>
+                    <button mat-icon-button (click)="help()">
+                        <mat-icon>{{'help_outline'|translate}}</mat-icon>
+                    </button>
+                </li>
+                <li>
+                    <button mat-button [matMenuTriggerFor]="menu" >
+                        <img *ngIf="user" class="profile-img" src="{{user.avatarUrl}}" alt="{{user.firstName + user.lastName}}">
+                        <span *ngIf="user">{{user.firstName + user.lastName}}</span>
+                    </button>
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item (click)="logout()">
+                            <mat-icon >{{'exit_to_app'|translate}}</mat-icon>
+                            {{'Sign out'|translate}}
+                        </button>
+                    </mat-menu>
+                    
+
+                </li>
+            </ul>
+        </div>
+    </mat-toolbar-row>
+</mat-toolbar>

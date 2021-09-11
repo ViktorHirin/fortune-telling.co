@@ -1,0 +1,24 @@
+<h2 class="title-list text-center">Managed Edit Static Page</h2>
+<div class="pull-left">
+    <a mat-button [routerLink]="['/dashboard/static-page']" class="btn btn-primary">
+        <mat-icon>arrow_back</mat-icon> Back
+    </a>
+</div>
+<br>
+<mat-divider></mat-divider>
+<br>
+<div class="container">
+    <div class="form-group">
+        <h5 class="title" for="exampleInputEmail1">Title</h5>
+        <input type="text" class="form-control" id="inputTitle" aria-describedby="title" placeholder="Title"
+            [(ngModel)]="article.title">
+    </div>
+    <div class="form-group">
+        <h5 class="title">Body</h5>
+        <ck-editor name="editor" [(ngModel)]="article.content" skin="moono-lisa" language="en"></ck-editor>
+    </div>
+    <div class="form-group">
+        <button class="btn btn-primary" (click)="ngOnSubmit()">Save</button>
+    </div>
+
+</div>

@@ -1,0 +1,13 @@
+<h1 mat-dialog-title>{{'Confirm'|translate}} </h1>
+<div mat-dialog-content>
+  <h5 class="text-center text-bold">{{options.option_name}}</h5>
+  <mat-form-field class="payment-full-width">
+    <mat-label> {{'Name'|translate}}</mat-label>
+    <input matInput type="text" name="option_value" id="" [(ngModel)]="options.option_value">
+  </mat-form-field>
+</div>
+
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">{{'No Thanks'|translate}}</button>
+  <button mat-button (click)="onSubmit()" [mat-dialog-close]="true" cdkFocusInitial>{{'Save'|translate}}</button>
+</div>  

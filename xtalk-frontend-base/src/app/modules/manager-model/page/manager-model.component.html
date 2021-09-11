@@ -1,0 +1,87 @@
+<h2 class="title-list text-center">{{'Clairvoyant Manager'|translate}}</h2>
+<br>
+
+<mat-divider></mat-divider>
+<br>
+<div fxLayout="row wrap" fxLayoutAlign="space-between center" fxLayoutGap="20px">
+    <div fxFlex="100">
+        <div class="container" fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="space-between center" clas="m-2" fxLayoutGap="20px">
+            <div  fxFlex.lt-md="100" fxLayoutGap.lt-md="10px" fxLayoutGap="20px" fxFlex="60">
+                <div class="acction-toolbar">
+                    <button  class ="m-2" fxFlex="15" mat-raised-button color="primary" (click)="addNewUser()"><i  class="fa fa-plus mr-1"> </i></button>
+                    <button *ngIf="assigned" class ="m-2" fxFlex="15" mat-raised-button color="accent" (click)="deActiveListUser(assigned)"><i  class="fa fa-ban mr-1"></i></button>
+                    <button *ngIf="assigned" fxFlex="15" class ="m-2" mat-raised-button color="bassic" (click)="activeListUser(assigned)"> <i  class="fa fa-check mr-1"></i></button>
+                    <button *ngIf="assigned" fxFlex="15" class ="m-2" mat-raised-button color="warn" (click)="deleteListUser(assigned)"><i  class="fa fa-trash mr-1"></i></button>
+                </div>
+            </div>
+            <div fxLayoutGap="20px" fxFlex.lt-md="100"  fxFlex="40">
+                <mat-form-field class="filter-input">
+                    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="{{'Filter'|translate}}">
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="mat-elevation-z8">
+            <mat-table [dataSource]="listModels" matSort >
+                <!-- Checkbox Column -->
+                <ng-container matColumnDef="select" fxShow="true" fxShow.lt-md="false">
+                    <mat-header-cell *matHeaderCellDef >
+                        <mat-checkbox (change)="HeaderCheckBoxChanged($event);$event ? masterToggle() : null" 
+                        [checked]="selection.hasValue() && isAllSelected()"
+                        [indeterminate]="selection.hasValue() && !isAllSelected()">
+                        </mat-checkbox>
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let user" class='m-card-sub-title'>
+                        <mat-checkbox (click)="$event.stopPropagation()" (change)="CheckBoxChanged($event,user.id);$event ? selection.toggle(user) : null"
+                        [checked]="selection.isSelected(user) || user.IsAssigned">
+                        </mat-checkbox>
+                    </mat-cell>
+                </ng-container>
+                <!--  Name Column -->
+                <ng-container matColumnDef="name">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header > {{'Name'|translate}} </mat-header-cell>
+                    <mat-cell *matCellDef="let user" ><span class='m-card-sub-title'> {{'Name'|translate}}</span> {{user.firstName}} {{user.lastName}}</mat-cell>
+                    
+                </ng-container>
+
+                 <!--Email Column -->
+                 <ng-container matColumnDef="email">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> {{'Email'|translate}} </mat-header-cell>
+                    <mat-cell *matCellDef="let user" ><span class='m-card-sub-title'>{{'Email'|translate}}:</span> {{user.email}}</mat-cell>
+                </ng-container>
+
+                <!-- Role Column -->
+                <ng-container matColumnDef="role">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header > {{'Role'|translate}}  </mat-header-cell>
+                    <mat-cell *matCellDef="let user" ><span class='m-card-sub-title'>{{'Role'|translate}}</span> {{user.role}}</mat-cell>
+                </ng-container>
+
+                <!-- Status Column -->
+                <ng-container matColumnDef="status">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header > {{'Status'|translate}}  </mat-header-cell>
+                    <mat-cell *matCellDef="let user"  ><span class='m-card-sub-title'>{{'Status'|translate}}</span> {{user.status?'On':'Off'}} </mat-cell>
+
+                </ng-container>
+
+                 <!-- Token Column -->
+                 <ng-container matColumnDef="token">
+                    <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header >{{'Available Tokens'|translate}} </mat-header-cell>
+                    <mat-cell *matCellDef="let user"  ><span class='m-card-sub-title'>{{'Token'|translate}}:</span> {{user.token}} </mat-cell>
+                </ng-container>
+                <!-- Action Column-->
+                <ng-container matColumnDef="actions">
+                    <mat-header-cell  *matHeaderCellDef > {{'Actions'|translate}} </mat-header-cell>
+                    <mat-cell *matCellDef="let user"  fxLayout="row wrap"   fxLayout.lt-md="columns" class='m-card-sub-title'>
+                        <button type="button" class="btn btn-primary" (click)="editUser(user)" color="primary"><i  class="fa fa-pencil"></i></button>
+                        <button type="button" class="btn btn-danger" (click)="deleteUser(user.id)"><i  class="fa fa-trash"></i></button>
+                        <button *ngIf="user.isActive"type="button" class="btn btn-warning" (click)="deActiveUser(user.id)" ><i  class="fa fa-ban"></i></button>
+                        <button *ngIf="!user.isActive"type="button" class="btn btn-success" (click)="activeUser(user.id)"><i  class="fa fa-check"></i></button>
+                        <button type="button" class="btn btn-default" (click)="changePassword(user.id)"><i class="fa fa-key"></i></button>   
+                    </mat-cell>
+                  </ng-container>
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </mat-table>
+        <mat-paginator  [length]="resultsLength" [pageSizeOptions]="[10,30,50,100,500]"></mat-paginator>
+        </div>
+    </div>
+</div>

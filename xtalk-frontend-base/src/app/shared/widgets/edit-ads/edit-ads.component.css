@@ -1,0 +1,17 @@
+.payment-full-width {
+    padding: 20px 0px;
+    width: 100%;
+  }
+  .mat-elevation-z8{
+    margin: auto;
+    padding: 10%;
+}
+@media screen and (max-width: 600px){
+  .alert {
+    font-size: 0.65rem;
+    padding: 5px;
+  }
+  label ,input{
+    font-size: 0.65rem;
+  }
+}

@@ -1,0 +1,87 @@
+
+<div class="header">
+  <div class="logo">
+    <a [routerLink]='["/home"]'><img src="{{pageConfig.getLogo()}}"></a>
+  </div>
+  <a  class="toggle-menu" (click)="acitveToggleMenu=!acitveToggleMenu" [ngClass]="acitveToggleMenu?'active':'' "><i class="fa fa-bars"></i></a>
+  <div class="search-top">
+    <input type="text" name="" placeholder="{{'Enter keyword'|translate}}" (keyup)="searchTerm$.next($event.target.value)"
+    placeholder="{{'Search'|translate}} ">
+    <button><i class="fa fa-search"></i></button>
+    <ul class="list-group search-result_list" *ngIf="results">
+      <li class="list-group-item" *ngFor="let result of results ">
+          <a  href="/model-detail/{{ result.id }}" target="_blank">
+              {{ result.firstName }} {{result.lastName }}
+          </a>
+      </li>
+    </ul>
+  </div>
+  <div class="right-header" [ngClass]="acitveToggleMenu?'active':'' ">
+    
+    
+
+    <div *ngIf="user && user.access_token ; else notLogin" class="menu-profile"  >
+      <li ngbDropdown>
+        {{'Hi'|translate}}!
+        <a   class="dropdown-toggle"  id="dropdownMenuButton" ngbDropdownToggle >{{user.lastName}} <i   class="fa fa-angle-down"></i></a>
+        <div ngbDropdownMenu aria-labelledby="dropdownMenuButton">
+          <button ngbDropdownItem [routerLink]="['/profile']">{{'Profile'|translate}}</button>
+          <button ngbDropdownItem [routerLink]="['/talk-history']">{{'Talk History'|translate}}</button>
+          <button ngbDropdownItem [routerLink]="['/message']"> {{'Message'|translate}}</button>
+          <button ngbDropdownItem [routerLink]="['/auth']"> {{'Change Password'|translate}}</button>
+
+          <button *ngIf="user && user.role == 'clairvoyant' " ngbDropdownItem [routerLink]="['/auth/send-withdraw']"> {{'Send WithDraw'|translate}}</button>
+          <button *ngIf="user && user.role == 'clairvoyant' " ngbDropdownItem [routerLink]="['/auth/bank-account']"> {{'Bank Account'|translate}}</button>
+          <button *ngIf="user && user.role == 'clairvoyant' " ngbDropdownItem [routerLink]="['/my-gallery']"> {{'Gallery'|translate}}</button>
+          <button ngbDropdownItem (click)="logout()">{{'Log out'|translate}}</button>
+        </div>
+      </li>
+      <li>
+        <a [routerLink]="['/notification']" class="nofication"><i class="fa fa-bell"></i></a>
+      </li>
+      
+      <li ngbDropdown class="nav-item dropdown dropdown-language">
+        <a class="nav-link dropdown-toggle" id="dropdown-flag" ngbDropdownToggle>
+          <i class="flag-icon flag-icon-{{ languageOptions[_translateService.currentLang].flag }}"></i> {{ languageOptions[_translateService.currentLang].title }}
+        </a>
+        <div ngbDropdownMenu aria-labelledby="dropdown-flag" class="language-dropdown">
+          <a *ngFor="let lang of _translateService.getLangs()" ngbDropdownItem (click)="setLanguage(lang)">
+            <i class="flag-icon flag-icon-{{ languageOptions[lang].flag }}"></i> {{ languageOptions[lang].title }}
+          </a>
+        </div>
+      </li>
+
+    </div>
+    <ng-template #notLogin>
+      <div class="menu-login">
+        <a [routerLink]="['/login']">{{'Login'|translate}}</a>  |  <a [routerLink]="['/sign-up']">{{'Signup User'|translate}}</a> |  <a [routerLink]="['/register-model']">{{'Signup Clairvoyant'|translate}}</a>
+        <!-- <div class="menu-language"> -->
+          <!-- Language selection -->
+          <li ngbDropdown class="nav-item dropdown dropdown-language">
+            <a class="nav-link dropdown-toggle" id="dropdown-flag" ngbDropdownToggle>
+              <i class="flag-icon flag-icon-{{ languageOptions[_translateService.currentLang].flag }}"></i> {{ languageOptions[_translateService.currentLang].title }}
+            </a>
+            <div ngbDropdownMenu aria-labelledby="dropdown-flag" class="language-dropdown">
+              <a *ngFor="let lang of _translateService.getLangs()" ngbDropdownItem (click)="setLanguage(lang)">
+                <i class="flag-icon flag-icon-{{ languageOptions[lang].flag }}"></i> {{ languageOptions[lang].title }}
+              </a>
+            </div>
+          </li>
+          <!--/ Language selection -->
+        <!-- </div> -->
+      </div>
+      
+    </ng-template>
+    
+    
+    <ul class="nav-main">
+      <li ><a [routerLink]='["/home"]'>{{'Home'|translate}}</a></li>
+      <li ><a [routerLink]='["/models"]'  >{{'Clairvoyants'|translate}}</a></li>
+      <li *ngIf="user && user.role == 'member' "><a [routerLink]='["/get-minutes"]' >{{'Get Minutes'|translate}}</a></li>
+      <li><a [routerLink]='["/how-to-call"]' >{{'How to Call'|translate}}</a></li>
+      <li *ngIf="user && user.role == 'member' "><a  >{{timer}} {{'Minutes'|translate}}</a></li>
+    </ul>
+  </div>
+</div>
+
+

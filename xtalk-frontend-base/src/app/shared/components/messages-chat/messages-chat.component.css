@@ -1,0 +1,9 @@
+.progress-upload ,.mat-progress-spinner svg{
+    float: right;
+    width: 15px !important;
+    height: 15px !important;
+}
+
+.preview-Img{
+    max-width: 50%;
+}

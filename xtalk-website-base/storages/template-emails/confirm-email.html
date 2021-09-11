@@ -1,0 +1,8 @@
+{% extends "./default.html" %}
+{% block content %}
+<p>Hello {{user.firstName}} {{user.lastName}}</p>
+<p>
+  Welcome to <a href="{{baseUrl}}">{{websiteName}}</a>.Before you can start using the site, you must first verify your email.</p>
+<p>Please <a href="{{confirmation}}">click here</a> or copy the link below and paste it into your browser..</p>
+<a href="{{confirmation}}">{{confirmation}}</a>
+{% endblock %}

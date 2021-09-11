@@ -1,0 +1,111 @@
+<div class="item-model" *ngIf="size == 'big'">
+  <div class="pic-model">
+    <a [routerLink]="['/model-detail', model.id]"
+    *ngIf="model && model.avatarUrl != null ; else notAvatar;">
+    <img class="" src="{{imageHelper.getAvatarLink(model.avatarPath,size)}}"></a>
+    <ng-template #notAvatar>
+      <a href="#"><img src="{{imageHelper.getAvatarLink('/assets/images/img.jpg',size)}}"></a>
+    </ng-template>
+  </div>
+  <div class="txt-model">
+    <div class="title-model">
+      <h3><a [routerLink]="['/model-detail', model.id]">{{ model.firstName +" " +  model.lastName}}</a></h3>
+    </div>
+    <ng-template #t let-fill="fill">
+      <span class="star" [class.full]="fill === 100">
+        <span class="half" [style.width.%]="fill">&#9733;</span>&#9733;
+      </span>
+    </ng-template>
+    <div class="star-v">
+      <ngb-rating [starTemplate]="t" [(rate)]="model.rating" [max]="5" [readonly]="true">
+
+      </ngb-rating>
+      <span class="volume-model"><i class="fa fa-volume-up"></i></span>
+    </div>
+    <div class="Language-model">{{'LANGUAGE'|translate}}: {{model.languages}}</div>
+    <div *ngIf="model.isCalling == true || model.doNotDisturb  ;else notCalling">
+      <div class="btn-status off-online"><i class="fa fa-comments"></i> <span>{{'Busy'|translate}}</span></div>
+    </div>
+    <ng-template #notCalling>
+      <div *ngIf="model.status == true ;else notActive" class="btn-status online"><i class="fa fa-comments"></i>
+        <span>{{'ONLINE'|translate}}</span></div>
+      <ng-template #notActive>
+        <div class="btn-status off-online"><i class="fa fa-comments"></i> <span>{{'OFFLINE'|translate}}</span></div>
+      </ng-template>
+    </ng-template>
+  </div>
+</div>
+<div class="item-model" *ngIf="size == 'medium'">
+<div class="pic-model_{{size}}">
+  <a [routerLink]="['/model-detail', model.id]"
+    *ngIf="model && model.hasAvatar ; else notAvatar;">
+    <img class="" src="{{imageHelper.getAvatarLink(model.avatarPath,size)}}" (error)="setDefaultPic()"></a>
+  <ng-template #notAvatar>
+    <a href="#"><img src="{{apiUrl}}/{imageHelper.getAvatarLink('/assets/images/img.jpg',size))}} "  (error)="setDefaultPic()"></a>
+  </ng-template>
+</div>
+<div class="txt-model">
+  <div class="title-model">
+    <h3><a [routerLink]="['/model-detail', model.id]">{{ model.firstName +" " +  model.lastName}}</a></h3>
+  </div>
+  <ng-template #t let-fill="fill">
+    <span class="star" [class.full]="fill === 100">
+      <span class="half" [style.width.%]="fill">&#9733;</span>&#9733;
+    </span>
+  </ng-template>
+  <div class="star-v">
+    <ngb-rating [starTemplate]="t" [(rate)]="model.rating" [max]="5" [readonly]="true">
+
+    </ngb-rating>
+    <span class="volume-model"><i class="fa fa-volume-up"></i></span>
+  </div>
+  <div class="Language-model">{{'LANGUAGE'|translate}}: {{model.languages}}</div>
+  <div *ngIf="model.isCalling == true || model.doNotDisturb  ;else notCalling">
+    <div class="btn-status off-online"><i class="fa fa-comments"></i> <span>{{'Busy'|translate}}</span></div>
+  </div>
+  <ng-template #notCalling>
+    <div *ngIf="model.status == true ;else notActive" class="btn-status online"><i class="fa fa-comments"></i>
+      <span>{{'ONLINE'|translate}}</span></div>
+    <ng-template #notActive>
+      <div class="btn-status off-online"><i class="fa fa-comments"></i> <span>{{'OFFLINE'|translate}}</span></div>
+    </ng-template>
+  </ng-template>
+</div>
+</div>
+<div class="item-model" *ngIf="size == 'thumbnail'">
+<div class="pic-model_{{size}}">
+  <a [routerLink]="['/model-detail', model.id]"
+    *ngIf="model && model.avatarUrl != null ; else notAvatar;">
+    <img class="" src="{{apiUrl}}/{{getAvatar(model.avatarPath)}}"   (error)="setDefaultPic()"></a>
+  <ng-template #notAvatar>
+    <a href="#"><img src="{{imageHelper.getAvatarLink('/assets/images/img.jpg',size)}}"  (error)="setDefaultPic()"></a>
+  </ng-template>
+</div>
+<div class="txt-model">
+  <div class="title-model">
+    <h3><a [routerLink]="['/model-detail', model.id]">{{ model.firstName +" " +  model.lastName}}</a></h3>
+  </div>
+  <ng-template #t let-fill="fill">
+    <span class="star" [class.full]="fill === 100">
+      <span class="half" [style.width.%]="fill">&#9733;</span>&#9733;
+    </span>
+  </ng-template>
+  <div class="star-v">
+    <ngb-rating [starTemplate]="t" [(rate)]="model.rating" [max]="5" [readonly]="true">
+
+    </ngb-rating>
+    <span class="volume-model"><i class="fa fa-volume-up"></i></span>
+  </div>
+  <div class="Language-model">{{'LANGUAGE'|translate}}: {{model.languages}}</div>
+  <div *ngIf="model.isCalling == true || model.doNotDisturb  ;else notCalling">
+    <div class="btn-status off-online"><i class="fa fa-comments"></i> <span>{{'Busy'|translate}}</span></div>
+  </div>
+  <ng-template #notCalling>
+    <div *ngIf="model.status == true ;else notActive" class="btn-status online"><i class="fa fa-comments"></i>
+      <span>{{'ONLINE'|translate}}</span></div>
+    <ng-template #notActive>
+      <div class="btn-status off-online"><i class="fa fa-comments"></i> <span>{{'OFFLINE'|translate}}</span></div>
+    </ng-template>
+  </ng-template>
+</div>
+</div>

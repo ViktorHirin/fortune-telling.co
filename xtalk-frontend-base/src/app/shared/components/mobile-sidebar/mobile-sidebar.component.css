@@ -1,0 +1,35 @@
+@media all and (max-width: 768px) {
+    .mat-list-base {
+        position: absolute;
+        padding-top: 0px;
+        display: block;
+        -webkit-tap-highlight-color: transparent;
+        z-index: 200;
+    }
+}
+.bg-drak{
+    background-color: black;
+    border-radius: 10px 10px 5px 5px;
+    position: absolute;
+    z-index: 999;
+}
+.white-icon{
+    color: #fff;
+}
+.first-list-icon{
+    border-radius: 10px 10px 0px 0px;
+}
+.last-list-icon{
+    border-radius: 0px 0px 5px 5px;
+}
+
+.mat-list-icon{
+    margin-right: 10px;
+}
+.mat-nav-list .mat-list-item {
+    cursor: pointer;
+    outline: 0;
+    color: #fff;
+    display: flex;
+
+}

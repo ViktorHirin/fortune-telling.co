@@ -1,0 +1,25 @@
+.tableCell-img{
+    max-width: 100%;
+    height: auto;
+}
+@media screen and (max-width: 600px) {
+  
+    mat-cell:first-of-type, mat-footer-cell:first-of-type, mat-header-cell:first-of-type {
+     padding-left: 24px;
+     display: none !important;
+   }
+   mat-cell:first-of-type, mat-footer-cell:first-of-type, mat-header-cell:first-of-type {
+     padding-left: 24px;
+     display: none !important;
+   }
+   .btn {
+     
+     padding: 5px;
+     font-size: 8px;
+     line-height: 1.2;
+     
+   }
+   mat-cell, mat-footer-cell, mat-header-cell {
+     flex-wrap: wrap;
+   }
+   } 

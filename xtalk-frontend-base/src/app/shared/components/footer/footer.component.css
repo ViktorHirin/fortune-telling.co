@@ -1,0 +1,9 @@
+.list_static-page{
+    width: 100%;
+}
+.list_static-page li {
+    min-width: 100px;
+    font-size: 1rem;
+    text-transform: capitalize ;
+    flex-wrap: wrap;
+}

@@ -1,0 +1,61 @@
+
+  <h2 class="title-list text-center">{{'Page Config'|translate}}</h2>
+  <br>
+  <mat-divider></mat-divider>
+  <br>
+ 
+  <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px">
+    <div fxFlex="80">
+      <div class=" container">
+        <div class="payment-form">
+          <mat-card class="example-card">
+            <mat-card-content>
+              <img src="{{host}}{{pageConfig.logo.data}}" alt="" *ngIf="!previewUrl">
+              <img src="{{previewUrl}}" alt="" *ngIf="previewUrl">
+              <h5>{{'Logo Upload'|translate}}</h5>
+              <input class="btn btn-danger btn-block upload-btn" type="file" name="image" (change)="fileProgress($event)"
+                     accept="image/x-png,image/gif,image/jpeg">
+              <div class="payment-full-width">
+                <img src="{{pageConfig.faviconLink}}" alt="">
+                <h5>{{'Favicon Upload'|translate}}</h5>
+                <input class="btn btn-danger btn-block upload-btn" type="file" name="favicon" (change)="uploadFavicon($event)"
+                       accept=".ico">
+              </div>
+              <mat-form-field class="payment-full-width">
+                <mat-label> {{'Footer'|translate}}</mat-label>
+                <input matInput type="text" [(ngModel)]="pageConfig.footer">
+              </mat-form-field>
+              <mat-form-field class="payment-full-width">
+                <mat-label> {{'Google Analytics'|translate}}</mat-label>
+                <input matInput type="text" [(ngModel)]="pageConfig.googleCode">
+              </mat-form-field>
+              <mat-form-field class="payment-full-width">
+                <mat-label> {{'Facebook'|translate}}</mat-label>
+                <input matInput type="text" [(ngModel)]="pageConfig.fb">
+              </mat-form-field>
+              <mat-form-field class="payment-full-width">
+                <mat-label> {{'Instagram'|translate}}</mat-label>
+                <input matInput type="text" [(ngModel)]="pageConfig.gg">
+              </mat-form-field>
+              <mat-form-field class="payment-full-width">
+                <mat-label> {{'Twitter'|translate}}</mat-label>
+                <input matInput type="text" [(ngModel)]="pageConfig.twitter">
+              </mat-form-field>
+              <mat-form-field class="payment-full-width">
+                <mat-label>{{'Number of Tokens Per Minute'|translate}}</mat-label>
+                <input matInput type="text" [(ngModel)]="pageConfig.price">
+              </mat-form-field>
+              <mat-form-field class="payment-full-width">
+                <mat-label> {{'Currency'|translate}}</mat-label>
+                <input matInput type="text" [(ngModel)]="pageConfig.currency">
+              </mat-form-field>
+              <button mat-raised-button color="accent" (click)="onSubmit()" [disabled]="loading"
+                      ngclass="btn btn-danger btn-sm">{{'Save'|translate}}</button>
+            </mat-card-content>
+          </mat-card>
+        </div>
+
+
+      </div>
+    </div>
+  </div>

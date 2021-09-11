@@ -1,0 +1,10 @@
+.preivew img{
+    max-width: 100%;
+    border-radius: 10px;
+}
+@media  all and (max-width:559px)
+{
+    .mat-form-field{
+        width: 100%;
+    }
+}

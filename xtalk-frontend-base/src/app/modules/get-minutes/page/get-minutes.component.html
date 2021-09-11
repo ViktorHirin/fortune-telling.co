@@ -1,0 +1,104 @@
+<app-navigation></app-navigation>
+<div class="model-home">
+    <div class="container">
+    <div class="hea-top-main">
+        <div class="thumbnail">
+            <a href="#">{{'Home'|translate}} </a>  >  
+            <span>{{'Get Minutes'|translate}}</span>
+        </div>
+        
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 col-lg-9">
+            <ul class="step-minutes">
+                <li><span>{{'Get'|translate}}</span> {{'Minutes'|translate}}</li>
+                <li class="active"><span>{{'Choose'|translate}}</span> {{'Package'|translate}}</li>
+                <li><span>{{'Choose'|translate}}</span> {{'Payment Method'|translate}}</li>
+            </ul>
+            <!-- <p class="text-center">
+                » Anonymous, Safe and Secure<br>
+                » Choose your package and click on "Select"
+            </p> -->
+            <div class="package-main">
+                <ul class="list-package">
+                   <li *ngFor="let topup of listTopup">
+                        <div class="box-package lt-md_hidden">
+                            <div class="top-package">
+                                <h2>{{topup.name}}<span>{{pageConfig?.currency}}{{getPrice(topup.price)}}</span></h2>
+                                
+                                <a *ngIf="user != null;else notUser"href="{{ccbillPath+topup.flexformId+'?user_id='+user.id+'&topupId='+topup._id}}" class="btn btn-danger-ouline">{{'SELECT'|translate}}</a>
+                                <ng-template #notUser>
+                                    <a  [routerLink]="['/login']" class="btn btn-danger-ouline">{{'SELECT'|translate}}</a>
+                                </ng-template>
+                            </div>
+                            <div class="content-package" >
+                                <ul>
+                                    <li>{{getMinutes(topup.token ,pageConfig.price)}} {{'Minutes'|translate}}</li>
+                                    <li><i class="fa fa-check"></i></li>
+                                    <li><i class="fa fa-check"></i></li>
+                                    <li><i class="fa fa-check"></i></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="box-package lt-md_show">
+                            <div class="top-package">
+                                <h2>{{topup.name}}<span>{{pageConfig?.currency}}{{getPrice(topup.price)}}</span></h2>
+                                
+                                <a *ngIf="user != null;else notUser"href="{{ccbillPath+topup.flexformId+'?user_id='+user.id+'&topupId='+topup._id}}" class="btn btn-danger-ouline">{{'SELECT'|translate}}</a>
+                                <ng-template #notUser>
+                                    <a  [routerLink]="['/login']" class="btn btn-danger-ouline">{{'SELECT'|translate}}</a>
+                                </ng-template>
+                            </div>
+                            <div class="content-package" >
+                                <ul>
+                                    <li >{{getMinutes(topup.token ,pageConfig.price)}} {{'Minutes'|translate}}</li>
+                                    <li><span [style.padding-right]="'10px'">{{'Phone'|translate}}</span><i class="fa fa-check"></i></li>
+                                    <li><span [style.padding-right]="'10px'">{{'Website Calling'|translate}}</span><i class="fa fa-check"></i></li>
+                                    <li><span [style.padding-right]="'10px'">{{'Worldwide Accessible'|translate}}</span><i class="fa fa-check"></i></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <ul class="list-title-package lt-md_hidden">
+                    <li><span>{{'Minutes'|translate}}</span></li>
+                    <li><span>{{'Phone Calling'|translate}}</span></li>
+                    <li><span>{{'Website Calling'|translate}}</span></li>
+                    <li><span>{{'Worldwide Accessible'|translate}}</span></li>
+                </ul>
+
+            </div>
+        </div>
+        <div class="col-sm-5 col-lg-3 hide-mobile">
+            <div class="box-pink">
+                <div class="head-box-pink">
+                    <i class="fa fa-question-circle"></i>  {{'Why choose us?'|translate}}
+                </div>
+                <div class="body-box-pink">
+                    <ul class="list-1">
+                        <li><a href="#">{{'Anonymous, Safe & Secure'|translate}}</a></li>
+                        <li><a href="#">{{'Speak in Multiple Languages'|translate}}</a></li>
+                        <li><a href="#">{{'Great Audio Quality'|translate}}</a></li>
+                        <li><a href="#">{{'No Phone Charges'|translate}}</a></li>
+                        <li><a href="#">{{'Phone and Internet Calling'|translate}}</a></li>
+                        <li><a href="#">{{'Worldwide Accessible'|translate}}</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="box-pink">
+                <div class="head-box-pink">
+                    <i class="fa fa-lock"></i>  {{'Your privacy is important!'|translate}}
+                </div>
+                <div class="body-box-pink">
+                    <p>{{'At'|translate}} <a href="{{homeUrl}}">{{title}}</a> {{'we value your privacy very much.'|translate }} {{'All our calls are handled with full discretion.'|translate}} {{'To protect your privacy, charges are processed securely and will appear discreetly on your credit card statement.'|translate}} {{'No mention of phone sex or any adult related term.'|translate}}</p>
+                    <img src="assets/images/ssl.png">
+                </div>
+            </div>
+
+        </div>
+        
+    </div>
+</div>
+<app-footer></app-footer>

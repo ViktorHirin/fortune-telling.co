@@ -1,0 +1,75 @@
+<h2 class="title-list text-center">{{'Ads Manager'|translate}} </h2>
+<br>
+<mat-divider></mat-divider>
+<br>
+<div fxLayout="row wrap" fxLayoutAlign="space-between center" fxLayoutGap="20px">
+    <div fxFlex="100"> 
+        <div fxLayout="row" fxLayoutAlign="space-between center" clas="m-2" fxLayoutGap="20px">
+            <div fxFlex="80" fxLayoutGap="20px">
+                <div class="acction-toolbar">
+                    <button  class ="m-2" fxFlex="15" mat-raised-button color="primary" (click)="update()"><i  class="fa fa-plus mr-1"> </i></button>
+                    
+                </div>
+            </div>
+        </div>
+        <div class="mat-elevation-z8">
+            <mat-table [dataSource]="listAds" matSort *ngIf="loadingData">
+                <!-- Checkbox Column -->
+                <!-- <ng-container matColumnDef="select">
+                    <mat-header-cell *matHeaderCellDef class="w-50p">
+                        <mat-checkbox (change)="HeaderCheckBoxChanged($event);$event ? masterToggle() : null" 
+                        [checked]="selection.hasValue() && isAllSelected()"
+                        [indeterminate]="selection.hasValue() && !isAllSelected()">
+                        </mat-checkbox>
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let adsItem" class="w-50p">
+                        <mat-checkbox (click)="$event.stopPropagation()" (change)="CheckBoxChanged($event,adsItem.id);$event ? selection.toggle(user) : null"
+                        [checked]="selection.isSelected(user) || adsItem.IsAssigned">
+                        </mat-checkbox>
+                    </mat-cell>
+                </ng-container> -->
+                <!-- First Name Column -->
+                <ng-container matColumnDef="title" >
+                    <mat-header-cell *matHeaderCellDef mat-sort-header class="mw-10"> {{'Title'|translate}} </mat-header-cell>
+                    <mat-cell *matCellDef="let adsItem" class="mw-10">{{adsItem.title}}  </mat-cell>
+                </ng-container>
+                 <!--Email Column -->
+                 <ng-container matColumnDef="type">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header > {{'Type'|translate}} </mat-header-cell>
+                    <mat-cell *matCellDef="let adsItem"> {{adsItem.type}}</mat-cell>
+                </ng-container>
+
+                <!-- Role Column -->
+                <ng-container matColumnDef="postion">
+                    <mat-header-cell *matHeaderCellDef class="w-50p" > {{'Postion'|translate}} </mat-header-cell>
+                    <mat-cell *matCellDef="let adsItem" class="w-50p"> {{adsItem.postion}}</mat-cell>
+                </ng-container>
+
+                <!-- Status Column -->
+                <ng-container matColumnDef="preview">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header class="w-50p"> {{'Preview'|translate}}  </mat-header-cell>
+                    <mat-cell *matCellDef="let adsItem" class="w-50p"><img class="tableCell-img" src="{{baseUrl}}{{adsItem.file.fileUrlBase}}"> </mat-cell>
+                </ng-container>
+
+                <!-- Token Column -->
+                <ng-container matColumnDef="status">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header class="w-50p"> {{'Status'|translate}}  </mat-header-cell>
+                    <mat-cell *matCellDef="let adsItem" class="w-50p"> {{adsItem.status}} </mat-cell>
+                </ng-container>
+                <!-- Action Column-->
+                <ng-container matColumnDef="actions">
+                    <mat-header-cell  *matHeaderCellDef > {{'Actions'|translate}} </mat-header-cell>
+                    <mat-cell *matCellDef="let adsItem" fxLayout="row wrap" >
+                        <button type="button" class="btn btn-primary" (click)="update(adsItem)" color="primary"><i  class="fa fa-pencil"></i></button>
+                        <button type="button" class="btn btn-danger" (click)="deleteAds(adsItem._id)"><i  class="fa fa-trash"></i></button>
+                        <button *ngIf="!adsItem.isActived"type="button" class="btn btn-success" (click)="activeAds(adsItem)" ><i  class="fa fa-check"></i></button>
+                        <button *ngIf="adsItem.isActived"type="button" class="btn btn-warning" (click)="deActiveAds(adsItem._id)"><i  class="fa fa-ban"></i></button>
+                    </mat-cell>
+                  </ng-container>
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </mat-table>
+        <mat-paginator [length]="resultsLength" [pageSizeOptions]="[10, 20,50,100,500]"></mat-paginator>
+        </div>
+   </div>
+</div>

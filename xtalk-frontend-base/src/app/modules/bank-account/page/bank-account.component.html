@@ -1,0 +1,367 @@
+<div class="model-home">
+    <div class="container">
+      <div class="top-profile">
+        <div class="name-left">
+          {{ user.firstName + " " + user.lastName }}
+          <i class="fa fa-check-circle color-green"></i>
+          <a href="#" class="edit"><i class="fa fa-pencil"></i></a>
+        </div>
+        <div class="phone-right">
+  
+          <i *ngIf="user.twilioNumber"class="fa fa-phone color-pink"></i>
+          {{ user.twilioNumber}}
+          <!-- <ng-template notTwilio>
+            <button (click)="createTwilioPhone()"></button>
+          </ng-template> -->
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col-sm-4 preivew avatarImg">
+          <img  *ngIf="user.avatarUrl;else notAvatar" src="{{user.avatarUrl}}" alt="">
+          <ng-template #notAvatar>
+            <img  src="assets/images/img.jpg" width="100%">
+          </ng-template>
+          
+        </div>
+        <div class="col-sm-8">
+          <div class="title-1">
+            <h3>{{'Bank Account'|translate}}</h3>
+            <div class="pull-right">
+              <button mat-raised-button color="accent" (click)="onSubmit()" ngclass="btn btn-danger btn-sm">{{'Save'|translate}}</button>
+            </div>
+          </div>
+          <form class="content-1" [formGroup]="bankFormGroup">
+            <div class="row form-edit">
+              <div class="col-sm-6">
+                <div class="form-group row">
+                  <label class="col-sm-5">{{'Country'|translate}}:</label>
+                  <div class="col-sm-7">
+                    <mat-form-field appearance="fill">
+                      <mat-label>{{'Country'|translate}}:</mat-label>
+                      <mat-select  [(value)]="this.bankInfo.country"> 
+                        <mat-option value="">{{'Country'|translate}}...</mat-option>
+                          <mat-option value="AF">{{'Afghanistan'|translate}}</mat-option>
+                          <mat-option value="AL">{{'Albania'|translate}}</mat-option>
+                          <mat-option value="DZ">{{'Algeria'|translate}}</mat-option>
+                          <mat-option value="AS">{{'American Samoa'|translate}}</mat-option>
+                          <mat-option value="AD">{{'Andorra'|translate}}</mat-option>
+                          <mat-option value="AG">{{'Angola'|translate}}</mat-option>
+                          <mat-option value="AI">{{'Anguilla'|translate}}</mat-option>
+                          <mat-option value="AG">{{'Antigua Barbuda'|translate}}</mat-option>
+                          <mat-option value="AR">{{'Argentina'|translate}}</mat-option>
+                          <mat-option value="AA">{{'Armenia'|translate}}</mat-option>
+                          <mat-option value="AW">{{'Aruba'|translate}}</mat-option>
+                          <mat-option value="AU">{{'Australia'|translate}}</mat-option>
+                          <mat-option value="AT">{{'Austria'|translate}}</mat-option>
+                          <mat-option value="AZ">{{'Azerbaijan'|translate}}</mat-option>
+                          <mat-option value="BS">{{'Bahamas'|translate}}</mat-option>
+                          <mat-option value="BH">{{'Bahrain'|translate}}</mat-option>
+                          <mat-option value="BD">{{'Bangladesh'|translate}}</mat-option>
+                          <mat-option value="BB">{{'Barbados'|translate}}</mat-option>
+                          <mat-option value="BY">{{'Belarus'|translate}}</mat-option>
+                          <mat-option value="BE">{{'Belgium'|translate}}</mat-option>
+                          <mat-option value="BZ">{{'Belize'|translate}}</mat-option>
+                          <mat-option value="BJ">{{'Benin'|translate}}</mat-option>
+                          <mat-option value="BM">{{'Bermuda'|translate}}</mat-option>
+                          <mat-option value="BT">{{'Bhutan'|translate}}</mat-option>
+                          <mat-option value="BO">{{'Bolivia'|translate}}</mat-option>
+                          <mat-option value="BL">{{'Bonaire'|translate}}</mat-option>
+                          <mat-option value="BA">{{'Bosnia Herzegovina'|translate}}</mat-option>
+                          <mat-option value="BW">{{'Botswana'|translate}}</mat-option>
+                          <mat-option value="BR">{{'Brazil'|translate}}</mat-option>
+                          <mat-option value="BC">{{'British Indian Ocean Ter'|translate}}</mat-option>
+                          <mat-option value="BN">{{'Brunei'|translate}}</mat-option>
+                          <mat-option value="BG">{{'Bulgaria'|translate}}</mat-option>
+                          <mat-option value="BF">{{'Burkina Faso'|translate}}</mat-option>
+                          <mat-option value="BI">{{'Burundi'|translate}}</mat-option>
+                          <mat-option value="KH">{{'Cambodia'|translate}}</mat-option>
+                          <mat-option value="CM">{{'Cameroon'|translate}}</mat-option>
+                          <mat-option value="CA">{{'Canada'|translate}}</mat-option>
+                          <mat-option value="IC">{{'Canary Islands'|translate}}</mat-option>
+                          <mat-option value="CV">{{'Cape Verde'|translate}}</mat-option>
+                          <mat-option value="KY">{{'Cayman Islands'|translate}}</mat-option>
+                          <mat-option value="CF">{{'Central African Republic'|translate}}</mat-option>
+                          <mat-option value="TD">{{'Chad'|translate}}</mat-option>
+                          <mat-option value="CD">{{'Channel Islands'|translate}}</mat-option>
+                          <mat-option value="CL">{{'Chile'|translate}}</mat-option>
+                          <mat-option value="CN">{{'China'|translate}}</mat-option>
+                          <mat-option value="CI">{{'Christmas Island'|translate}}</mat-option>
+                          <mat-option value="CS">{{'Cocos Island'|translate}}</mat-option>
+                          <mat-option value="CO">{{'Colombia'|translate}}</mat-option>
+                          <mat-option value="CC">{{'Comoros'|translate}}</mat-option>
+                          <mat-option value="CG">{{'Congo'|translate}}</mat-option>
+                          <mat-option value="CK">{{'Cook Islands'|translate}}</mat-option>
+                          <mat-option value="CR">{{'Costa Rica'|translate}}</mat-option>
+                          <mat-option value="CT">{{'Cote Ivoire'|translate}}</mat-option>
+                          <mat-option value="HR">{{'Croatia'|translate}}</mat-option>
+                          <mat-option value="CU">{{'Cuba'|translate}}</mat-option>
+                          <mat-option value="CB">{{'Curacao'|translate}}</mat-option>
+                          <mat-option value="CY">{{'Cyprus'|translate}}</mat-option>
+                          <mat-option value="CZ">{{'Czech Republic'|translate}}</mat-option>
+                          <mat-option value="DK">{{'Denmark'|translate}}</mat-option>
+                          <mat-option value="DJ">{{'Djibouti'|translate}}</mat-option>
+                          <mat-option value="DM">{{'Dominica'|translate}}</mat-option>
+                          <mat-option value="DO">{{'Dominican Republic'|translate}}</mat-option>
+                          <mat-option value="TM">{{'East Timor'|translate}}</mat-option>
+                          <mat-option value="EC">{{'Ecuador'|translate}}</mat-option>
+                          <mat-option value="EG">{{'Egypt'|translate}}</mat-option>
+                          <mat-option value="SV">{{'El Salvador'|translate}}</mat-option>
+                          <mat-option value="GQ">{{'Equatorial Guinea'|translate}}</mat-option>
+                          <mat-option value="ER">{{'Eritrea'|translate}}</mat-option>
+                          <mat-option value="EE">{{'Estonia'|translate}}</mat-option>
+                          <mat-option value="ET">{{'Ethiopia'|translate}}</mat-option>
+                          <mat-option value="FA">{{'Falkland Islands'|translate}}</mat-option>
+                          <mat-option value="FO">{{'Faroe Islands'|translate}}</mat-option>
+                          <mat-option value="FJ">{{'Fiji'|translate}}</mat-option>
+                          <mat-option value="FI">{{'Finland'|translate}}</mat-option>
+                          <mat-option value="FR">{{'France'|translate}}</mat-option>
+                          <mat-option value="GF">{{'French Guiana'|translate}}</mat-option>
+                          <mat-option value="PF">{{'French Polynesia'|translate}}</mat-option>
+                          <mat-option value="FS">{{'French Southern Ter'|translate}}</mat-option>
+                          <mat-option value="GA">{{'Gabon'|translate}}</mat-option>
+                          <mat-option value="GM">{{'Gambia'|translate}}</mat-option>
+                          <mat-option value="GE">{{'Georgia'|translate}}</mat-option>
+                          <mat-option value="DE">{{'Germany'|translate}}</mat-option>
+                          <mat-option value="GH">{{'Ghana'|translate}}</mat-option>
+                          <mat-option value="GI">{{'Gibraltar'|translate}}</mat-option>
+                          <mat-option value="GB">{{'Great Britain'|translate}}</mat-option>
+                          <mat-option value="GR">{{'Greece'|translate}}</mat-option>
+                          <mat-option value="GL">{{'Greenland'|translate}}</mat-option>
+                          <mat-option value="GD">{{'Grenada'|translate}}</mat-option>
+                          <mat-option value="GP">{{'Guadeloupe'|translate}}</mat-option>
+                          <mat-option value="GU">{{'Guam'|translate}}</mat-option>
+                          <mat-option value="GT">{{'Guatemala'|translate}}</mat-option>
+                          <mat-option value="GN">{{'Guinea'|translate}}</mat-option>
+                          <mat-option value="GY">{{'Guyana'|translate}}</mat-option>
+                          <mat-option value="HT">{{'Haiti'|translate}}</mat-option>
+                          <mat-option value="HW">{{'Hawaii'|translate}}</mat-option>
+                          <mat-option value="HN">{{'Honduras'|translate}}</mat-option>
+                          <mat-option value="HK">{{'Hong Kong'|translate}}</mat-option>
+                          <mat-option value="HU">{{'Hungary'|translate}}</mat-option>
+                          <mat-option value="IS">{{'Iceland'|translate}}</mat-option>
+                          <mat-option value="IN">{{'India'|translate}}</mat-option>
+                          <mat-option value="ID">{{'Indonesia'|translate}}</mat-option>
+                          <mat-option value="IA">{{'Iran'|translate}}</mat-option>
+                          <mat-option value="IQ">{{'Iraq'|translate}}</mat-option>
+                          <mat-option value="IR">{{'Ireland'|translate}}</mat-option>
+                          <mat-option value="IM">{{'Isle of Man'|translate}}</mat-option>
+                          <mat-option value="IL">{{'Israel'|translate}}</mat-option>
+                          <mat-option value="IT">{{'Italy'|translate}}</mat-option>
+                          <mat-option value="JM">{{'Jamaica'|translate}}</mat-option>
+                          <mat-option value="JP">{{'Japan'|translate}}</mat-option>
+                          <mat-option value="JO">{{'Jordan'|translate}}</mat-option>
+                          <mat-option value="KZ">{{'Kazakhstan'|translate}}</mat-option>
+                          <mat-option value="KE">{{'Kenya'|translate}}</mat-option>
+                          <mat-option value="KI">{{'Kiribati'|translate}}</mat-option>
+                          <mat-option value="NK">{{'Korea North'|translate}}</mat-option>
+                          <mat-option value="KS">{{'Korea South'|translate}}</mat-option>
+                          <mat-option value="KW">{{'Kuwait'|translate}}</mat-option>
+                          <mat-option value="KG">{{'Kyrgyzstan'|translate}}</mat-option>
+                          <mat-option value="LA">{{'Laos'|translate}}</mat-option>
+                          <mat-option value="LV">{{'Latvia'|translate}}</mat-option>
+                          <mat-option value="LB">{{'Lebanon'|translate}}</mat-option>
+                          <mat-option value="LS">{{'Lesotho'|translate}}</mat-option>
+                          <mat-option value="LR">{{'Liberia'|translate}}</mat-option>
+                          <mat-option value="LY">{{'Libya'|translate}}</mat-option>
+                          <mat-option value="LI">{{'Liechtenstein'|translate}}</mat-option>
+                          <mat-option value="LT">{{'Lithuania'|translate}}</mat-option>
+                          <mat-option value="LU">{{'Luxembourg'|translate}}</mat-option>
+                          <mat-option value="MO">{{'Macau'|translate}}</mat-option>
+                          <mat-option value="MK">{{'Macedonia'|translate}}</mat-option>
+                          <mat-option value="MG">{{'Madagascar'|translate}}</mat-option>
+                          <mat-option value="MY">{{'Malaysia'|translate}}</mat-option>
+                          <mat-option value="MW">{{'Malawi'|translate}}</mat-option>
+                          <mat-option value="MV">{{'Maldives'|translate}}</mat-option>
+                          <mat-option value="ML">{{'Mali'|translate}}</mat-option>
+                          <mat-option value="MT">{{'Malta'|translate}}</mat-option>
+                          <mat-option value="MH">{{'Marshall Islands'|translate}}</mat-option>
+                          <mat-option value="MQ">{{'Martinique'|translate}}</mat-option>
+                          <mat-option value="MR">{{'Mauritania'|translate}}</mat-option>
+                          <mat-option value="MU">{{'Mauritius'|translate}}</mat-option>
+                          <mat-option value="ME">{{'Mayotte'|translate}}</mat-option>
+                          <mat-option value="MX">{{'Mexico'|translate}}</mat-option>
+                          <mat-option value="MI">{{'Midway Islands'|translate}}</mat-option>
+                          <mat-option value="MD">{{'Moldova'|translate}}</mat-option>
+                          <mat-option value="MC">{{'Monaco'|translate}}</mat-option>
+                          <mat-option value="MN">{{'Mongolia'|translate}}</mat-option>
+                          <mat-option value="MS">{{'Montserrat'|translate}}</mat-option>
+                          <mat-option value="MA">{{'Morocco'|translate}}</mat-option>
+                          <mat-option value="MZ">{{'Mozambique'|translate}}</mat-option>
+                          <mat-option value="MM">{{'Myanmar'|translate}}</mat-option>
+                          <mat-option value="NA">{{'Nambia'|translate}}</mat-option>
+                          <mat-option value="NU">{{'Nauru'|translate}}</mat-option>
+                          <mat-option value="NP">{{'Nepal'|translate}}</mat-option>
+                          <mat-option value="AN">{{'Netherland Antilles'|translate}}</mat-option>
+                          <mat-option value="NL">{{'Netherlands (Holland, Europe)'|translate}}</mat-option>
+                          <mat-option value="NV">{{'Nevis'|translate}}</mat-option>
+                          <mat-option value="NC">{{'New Caledonia'|translate}}</mat-option>
+                          <mat-option value="NZ">{{'New Zealand'|translate}}</mat-option>
+                          <mat-option value="NI">{{'Nicaragua'|translate}}</mat-option>
+                          <mat-option value="NE">{{'Niger'|translate}}</mat-option>
+                          <mat-option value="NG">{{'Nigeria'|translate}}</mat-option>
+                          <mat-option value="NW">{{'Niue'|translate}}</mat-option>
+                          <mat-option value="NF">{{'Norfolk Island'|translate}}</mat-option>
+                          <mat-option value="NO">{{'Norway'|translate}}</mat-option>
+                          <mat-option value="OM">{{'Oman'|translate}}</mat-option>
+                          <mat-option value="PK">{{'Pakistan'|translate}}</mat-option>
+                          <mat-option value="PW">{{'Palau Island'|translate}}</mat-option>
+                          <mat-option value="PS">{{'Palestine'|translate}}</mat-option>
+                          <mat-option value="PA">{{'Panama'|translate}}</mat-option>
+                          <mat-option value="PG">{{'Papua New Guinea'|translate}}</mat-option>
+                          <mat-option value="PY">{{'Paraguay'|translate}}</mat-option>
+                          <mat-option value="PE">{{'Peru'|translate}}</mat-option>
+                          <mat-option value="PH">{{'Philippines'|translate}}</mat-option>
+                          <mat-option value="PO">{{'Pitcairn Island'|translate}}</mat-option>
+                          <mat-option value="PL">{{'Poland'|translate}}</mat-option>
+                          <mat-option value="PT">{{'Portugal'|translate}}</mat-option>
+                          <mat-option value="PR">{{'Puerto Rico'|translate}}</mat-option>
+                          <mat-option value="QA">{{'Qatar'|translate}}</mat-option>
+                          <mat-option value="ME">{{'Republic of Montenegro'|translate}}</mat-option>
+                          <mat-option value="RS">{{'Republic of Serbia'|translate}}</mat-option>
+                          <mat-option value="RE">{{'Reunion'|translate}}</mat-option>
+                          <mat-option value="RO">{{'Romania'|translate}}</mat-option>
+                          <mat-option value="RU">{{'Russia'|translate}}</mat-option>
+                          <mat-option value="RW">{{'Rwanda'|translate}}</mat-option>
+                          <mat-option value="NT">{{'St Barthelemy'|translate}}</mat-option>
+                          <mat-option value="EU">{{'St Eustatius'|translate}}</mat-option>
+                          <mat-option value="HE">{{'St Helena'|translate}}</mat-option>
+                          <mat-option value="KN">{{'St Kitts-Nevis'|translate}}</mat-option>
+                          <mat-option value="LC">{{'St Lucia'|translate}}</mat-option>
+                          <mat-option value="MB">{{'St Maarten'|translate}}</mat-option>
+                          <mat-option value="PM">{{'St Pierre Miquelon'|translate}}</mat-option>
+                          <mat-option value="VC">{{'St Vincent Grenadines'|translate}}</mat-option>
+                          <mat-option value="SP">{{'Saipan'|translate}}</mat-option>
+                          <mat-option value="SO">{{'Samoa'|translate}}</mat-option>
+                          <mat-option value="AS">{{'Samoa American'|translate}}</mat-option>
+                          <mat-option value="SM">{{'San Marino'|translate}}</mat-option>
+                          <mat-option value="ST">{{'Sao Tome Principe'|translate}}</mat-option>
+                          <mat-option value="SA">{{'Saudi Arabia'|translate}}</mat-option>
+                          <mat-option value="SN">{{'Senegal'|translate}}</mat-option>
+                          <mat-option value="RS">{{'Serbia'|translate}}</mat-option>
+                          <mat-option value="SC">{{'Seychelles'|translate}}</mat-option>
+                          <mat-option value="SL">{{'Sierra Leone'|translate}}</mat-option>
+                          <mat-option value="SG">{{'Singapore'|translate}}</mat-option>
+                          <mat-option value="SK">{{'Slovakia'|translate}}</mat-option>
+                          <mat-option value="SI">{{'Slovenia'|translate}}</mat-option>
+                          <mat-option value="SB">{{'Solomon Islands'|translate}}</mat-option>
+                          <mat-option value="OI">{{'Somalia'|translate}}</mat-option>
+                          <mat-option value="ZA">{{'South Africa'|translate}}</mat-option>
+                          <mat-option value="ES">{{'Spain'|translate}}</mat-option>
+                          <mat-option value="LK">{{'Sri Lanka'|translate}}</mat-option>
+                          <mat-option value="SD">{{'Sudan'|translate}}</mat-option>
+                          <mat-option value="SR">{{'Suriname'|translate}}</mat-option>
+                          <mat-option value="SZ">{{'Swaziland'|translate}}</mat-option>
+                          <mat-option value="SE">{{'Sweden'|translate}}</mat-option>
+                          <mat-option value="CH">{{'Switzerland'|translate}}</mat-option>
+                          <mat-option value="SY">{{'Syria'|translate}}</mat-option>
+                          <mat-option value="TA">{{'Tahiti'|translate}}</mat-option>
+                          <mat-option value="TW">{{'Taiwan'|translate}}</mat-option>
+                          <mat-option value="TJ">{{'Tajikistan'|translate}}</mat-option>
+                          <mat-option value="TZ">{{'Tanzania'|translate}}</mat-option>
+                          <mat-option value="TH">{{'Thailand'|translate}}</mat-option>
+                          <mat-option value="TG">{{'Togo'|translate}}</mat-option>
+                          <mat-option value="TK">{{'Tokelau'|translate}}</mat-option>
+                          <mat-option value="TO">{{'Tonga'|translate}}</mat-option>
+                          <mat-option value="TT">{{'Trinidad Tobago'|translate}}</mat-option>
+                          <mat-option value="TN">{{'Tunisia'|translate}}</mat-option>
+                          <mat-option value="TR">{{'Turkey'|translate}}</mat-option>
+                          <mat-option value="TU">{{'Turkmenistan'|translate}}</mat-option>
+                          <mat-option value="TC">{{'Turks Caicos Is'|translate}}</mat-option>
+                          <mat-option value="TV">{{'Tuvalu'|translate}}</mat-option>
+                          <mat-option value="UG">{{'Uganda'|translate}}</mat-option>
+                          <mat-option value="UA">{{'Ukraine'|translate}}</mat-option>
+                          <mat-option value="AE">{{'United Arab Emirates'|translate}}</mat-option>
+                          <mat-option value="GB">{{'United Kingdom'|translate}}</mat-option>
+                          <mat-option value="US">{{'United States of America'|translate}}</mat-option>
+                          <mat-option value="UY">{{'Uruguay'|translate}}</mat-option>
+                          <mat-option value="UZ">{{'Uzbekistan'|translate}}</mat-option>
+                          <mat-option value="VU">{{'Vanuatu'|translate}}</mat-option>
+                          <mat-option value="VS">{{'Vatican City State'|translate}}</mat-option>
+                          <mat-option value="VE">{{'Venezuela'|translate}}</mat-option>
+                          <mat-option value="VN">{{'Vietnam'|translate}}</mat-option>
+                          <mat-option value="VB">{{'Virgin Islands (Brit)'|translate}}</mat-option>
+                          <mat-option value="VA">{{'Virgin Islands (USA)'|translate}}</mat-option>
+                          <mat-option value="WK">{{'Wake Island'|translate}}</mat-option>
+                          <mat-option value="WF">{{'Wallis Futana Is'| translate}}</mat-option>
+                          <mat-option value="YE">{{'Yemen'|translate}}</mat-option>
+                          <mat-option value="ZR">{{'Zaire'|translate}}</mat-option>
+                          <mat-option value="ZM">{{'Zambia'|translate}}</mat-option>
+                          <mat-option value="ZW">{{'Zimbabwe'|translate}}</mat-option>
+                      </mat-select>
+                  </mat-form-field>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group row">
+                  <label class="col-sm-5">{{'Account ID'|translate}}:</label>
+                  <div class="col-sm-7">
+                    <mat-form-field class="example-full-width">
+                      <mat-label>{{'Account No'|translate}}.</mat-label>
+                      <input matInput formControlName="accountNoControl" 
+                            placeholder="" [(ngModel)]="bankInfo.accountNo">
+                      <mat-error *ngIf="bankFormGroup.controls.accountNoControl.hasError('required')">
+                        {{'Account No is'|translate}} <strong>{{'required'|translate}}</strong>
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group row">
+                  <label class="col-sm-5">{{'Bank'|translate}}:</label>
+                  <div class="col-sm-7">
+                    <mat-form-field class="example-full-width">
+                      <mat-label>{{'Bank'|translate}}</mat-label>
+                      <input type="text" matInput formControlName="bankControl" [(ngModel)]="bankInfo.nameBank">
+                      <!-- <mat-hint>Errors appear instantly!</mat-hint> -->
+                      <mat-error *ngIf="bankFormGroup.controls.bankControl.hasError('required')">
+                        {{'Bank is'|translate}} <strong>{{'required'|translate}}</strong>
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  </div>
+                </div>
+              <div class="col-sm-6">
+                <div class="form-group row">
+                  <label class="col-sm-5">{{'Name'|translate}}:</label>
+                  <div class="col-sm-7">
+                    <mat-form-field class="example-full-width">
+                      <mat-label>{{'Name'|translate}}</mat-label>
+                      <input matInput formControlName="nameFormControl" 
+                            placeholder="{{'Account'|translate}} 1" [(ngModel)]="bankInfo.name">
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group row">
+                  <label class="col-sm-5">{{'Routing Number'|translate}}:</label>
+                  <div class="col-sm-7">
+                    <mat-form-field class="example-full-width">
+                      <mat-label>{{'Routing Number'|translate}}</mat-label>
+                      <input matInput formControlName="routingFormControl" 
+                            placeholder="{{'Routing Number'|translate}}" [(ngModel)]="bankInfo.routingNumber">
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group row">
+                  <label class="col-sm-5">{{'SWIFT Code'|translate}}:</label>
+                  <div class="col-sm-7">
+                    <mat-form-field class="example-full-width">
+                      <mat-label>{{'SWIFT Code'|translate}}</mat-label>
+                      <input matInput formControlName="swiftFormControl" 
+                            placeholder="{{'SWIFT Code'|translate}}" [(ngModel)]="bankInfo.swiftCode">
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>

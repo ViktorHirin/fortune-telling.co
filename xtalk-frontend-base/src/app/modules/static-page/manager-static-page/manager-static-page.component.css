@@ -1,0 +1,21 @@
+.mat-table .mat-cell:nth-child(2) {
+    min-width: 40%;
+    color: inherit;
+  }
+  .mat-table .mat-header-cell:nth-child(2) {
+    min-width: 40%;
+    color: inherit;
+  }
+@media screen and (max-width: 600px) {
+     .btn {
+     
+       padding: 5px;
+       font-size: 8px;
+       line-height: 1.2;
+       
+     }
+     .mat-header-cell {
+       font-size: 8px;
+     }
+   }
+   

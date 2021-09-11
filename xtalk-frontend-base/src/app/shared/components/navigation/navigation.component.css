@@ -1,0 +1,53 @@
+.star {
+    position: relative;
+    display: inline-block;
+    font-size: 1.5rem;
+    color: #ffd40a;
+  }
+  .full {
+    color: #ffd40a;
+  }
+  .half {
+    position: absolute;
+    display: inline-block;
+    overflow: hidden;
+    color: #ffd40a;;
+  }
+
+.search-result_list{
+  position: absolute !important;
+  min-width: 100%;
+  border-radius: 10%;
+  border-top: 2px solid;
+  z-index: 400;
+}
+
+.language-dropdown {
+	min-width: 5rem !important;
+}
+.dropdown-language .nav-link {
+  padding-top: 0 !important;
+}
+.menu-language {
+	float: right;
+	margin-top: 17px;
+}
+.menu-language li {
+	float: left;
+	margin-right: 0px;
+	margin-left: 0px;
+	position: relative;
+}
+
+.menu-login .language-dropdown {
+  width: 7rem;
+}
+
+.menu-login .dropdown-language {
+  padding-top: 10px;
+  display: inline;
+}
+
+.language-dropdown .dropdown-item {
+  width: 5rem;
+}

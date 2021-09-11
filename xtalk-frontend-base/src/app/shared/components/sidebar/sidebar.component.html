@@ -1,0 +1,46 @@
+<mat-nav-list fxShow="true" fxHide.lt-md="true">
+    <button mat-icon-button (click)="toggleSideBar()" class="float-right">
+        <mat-icon>{{'close'|translate}}</mat-icon>
+    </button>
+    <h2 matSubheader>{{'Pages'|translate}}</h2>
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="/dashboard">
+        <mat-icon aria-hidden="false" aria-label="home">{{'home'|translate}}</mat-icon>{{'Dashboard'|translate}}
+    </a>
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="/dashboard/reviews">
+        <mat-icon> {{'list_alt'|translate}}</mat-icon>{{'Reviews'|translate}}
+    </a>
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="/dashboard/manager-model">
+        <mat-icon> {{'person_pin'|translate}}</mat-icon>{{'Clairvoyants'|translate}}
+    </a>
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="/dashboard/manager-user">
+        <mat-icon>{{'person'|translate}}</mat-icon> {{'User'|translate}}
+    </a>
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="/dashboard/packages">
+        <mat-icon> {{'attach_money'|translate}}</mat-icon>{{'Packages'|translate}}
+    </a>
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="/dashboard/options">
+        <mat-icon> {{'perm_data_setting'|translate}}</mat-icon>{{'Options'|translate}}
+    </a>
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="/dashboard/page-config">
+        <mat-icon> {{'settings'|translate}}</mat-icon>{{'Page Config'|translate}}
+    </a>
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="/dashboard/seo">
+        <mat-icon class="white-icon"> {{'title'|translate}}</mat-icon> {{'Seo Config'|translate}}
+    </a>
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="/dashboard/manager-withdraw">
+        <mat-icon> {{'credit_card'|translate}}</mat-icon>{{'With Draw'|translate}}
+    </a>
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="/dashboard/static-page">
+        <mat-icon> {{'how_to_vote'|translate}}</mat-icon>{{'Static Page'|translate}}
+    </a>
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="/dashboard/order-manager">
+        <mat-icon>{{'add_shopping_cart'|translate}}</mat-icon>{{'Order'|translate}}
+    </a>
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="/dashboard/ads">
+        <mat-icon>{{'image'|translate}}</mat-icon>{{'Banner'|translate}}
+    </a>
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="/dashboard/payout">
+        <mat-icon>{{'payment'|translate}}</mat-icon>{{'Pay out'|translate}}
+    </a>
+    <mat-divider></mat-divider>
+</mat-nav-list>

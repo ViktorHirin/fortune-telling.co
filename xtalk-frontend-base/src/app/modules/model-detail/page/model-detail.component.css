@@ -1,0 +1,33 @@
+.star {
+    position: relative;
+    display: inline-block;
+    font-size: 1.5rem;
+    color: #d3d3d3;
+  }
+  .full {
+    color: #ffd40a;
+  }
+  .half {
+    position: absolute;
+    display: inline-block;
+    overflow: hidden;
+    color: #ffd40a;;
+  }
+  .pic-model .mat-card-image
+  {
+    height: 220px;
+  }
+  .off-online{
+    display: block;
+    background-color: #ce1b12  !important;
+    text-transform: uppercase;
+    padding: 10px;
+    border-radius: 40px;
+    font-weight: bold;
+    text-align: center;
+    color: #fff;
+    margin-top: 10px;
+  }
+  .light-drark-backdrop {
+    background-color: #5cb3fd;
+  }

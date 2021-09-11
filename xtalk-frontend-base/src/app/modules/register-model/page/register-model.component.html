@@ -1,0 +1,394 @@
+<app-navigation></app-navigation>
+<div class="model-home register-container">
+  <div class="container">
+    <mat-horizontal-stepper #stepper linear fxShow="true" fxShow.lt-md="false">
+      <mat-step [stepControl]="registerFormGroup">
+        <ng-template matStepLabel>{{'Enter your account'|translate}}</ng-template>
+        <form [formGroup]="registerFormGroup">
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group row">
+                <mat-form-field appearance="fill">
+                  <mat-label for="firstName">{{'First Name'|translate}}</mat-label>
+                  <input type="text" matInput formControlName="firstNameCtrl" [(ngModel)]="user.firstName" />
+                  <mat-error *ngIf="registerFormGroup.controls['firstNameCtrl'].errors?.required">
+                    {{'First Name is required.'|translate}}
+                  </mat-error>
+
+                </mat-form-field>
+              </div>
+
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group row">
+
+                <mat-form-field appearance="fill">
+                  <mat-label for="lastName">{{'Last Name'|translate}}</mat-label>
+                  <input matInput type="text" formControlName="lastNameCtrl" [(ngModel)]="user.lastName" />
+                  <mat-error *ngIf="registerFormGroup.controls['lastNameCtrl'].errors?.required">
+                    {{'Last Name is required.'|translate}}
+                  </mat-error>
+
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group row">
+
+                <mat-form-field appearance="fill">
+                  <mat-label for="password">{{'Password'|translate}}</mat-label>
+                  <input matInput type="password" formControlName="passwordCtrl" [(ngModel)]="user.password" />
+                  <mat-error *ngIf="registerFormGroup.controls['passwordCtrl'].errors?.minlength">
+                    {{'Password has to be at least 8'|translate}}
+                  </mat-error>
+                  <mat-error *ngIf="registerFormGroup.controls['passwordCtrl'].errors?.required">
+                    {{'Password is required.'|translate}}
+                  </mat-error>
+
+                </mat-form-field>
+              </div>
+
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group row">
+
+                <mat-form-field appearance="fill">
+                  <mat-label for="prePassword">{{'Confirm Password'|translate}}</mat-label>
+                  <input matInput type="password" placeholder="{{'Confirm password'|translate}}" formControlName="confirmPassword"
+                    [errorStateMatcher]="matcher">
+                  <mat-error *ngIf="registerFormGroup.hasError('notSame')">
+                    {{'Passwords do not match'|translate}}
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group row">
+
+                <mat-form-field appearance="fill">
+                  <mat-label for="email">{{'Email'|translate}}</mat-label>
+                  <input matInput type="text" formControlName="emailCtrl" [(ngModel)]="user.email" />
+                  <mat-error *ngIf="registerFormGroup.controls['emailCtrl'].errors?.email">
+                    {{'Enter a valid email'|translate}}
+                  </mat-error>
+                  <mat-error *ngIf="registerFormGroup.controls['emailCtrl'].errors?.required">
+                    {{'Email is required.'|translate}}
+                  </mat-error>
+                </mat-form-field>
+              </div>
+
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group row phoneInput">
+                <label class='pr-4'>{{'Phone'|translate}}</label>
+                <ngx-intl-tel-input [inputId]="'adsasd'" [cssClass]="'custom'" [preferredCountries]="preferredCountries"
+                  [enableAutoCountrySelect]="true" [enablePlaceholder]="true" [searchCountryFlag]="true"
+                  [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]" [selectFirstCountry]="false"
+                  [selectedCountryISO]="CountryISO.UnitedStates" [maxLength]="15" [tooltipField]="TooltipLabel.Name"
+                  [phoneValidation]="true" [separateDialCode]="separateDialCode" name="phone"
+                  formControlName="phoneNumberCtrl">
+                </ngx-intl-tel-input>
+                <mat-error *ngIf="registerFormGroup.controls['phoneNumberCtrl'].invalid">
+                  {{'Phone number not valid'|translate}}
+                </mat-error>
+              </div>
+
+            </div>
+          </div>
+          <div>
+            <button mat-raised-button color="accent" matStepperNext [disabled]="registerFormGroup.invalid">{{'Next'|translate}}</button>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step [stepControl]="infoFormGroup">
+        <form [formGroup]="infoFormGroup">
+          <ng-template matStepLabel>{{'Fill out your info'|translate}}</ng-template>
+          <div class="title-1">
+            <h3>{{'About'|translate}}:</h3>
+
+          </div>
+          <div class="content-1">
+            <mat-form-field appearance="fill" class="full-width " style="width: 100%;">
+              <textarea matInput placeholder="{{'About'|translate}}" formControlName="rolesCtrl" [(ngModel)]="user.about"
+                required></textarea>
+              <mat-error *ngIf="infoForm.rolesCtrl.errors?.maxlength">
+                {{'About is'|translate}} <strong> {{'have max length is'|translate}} {{maxLengthText}}</strong>
+              </mat-error>
+            </mat-form-field>
+            <span class="float-right alert-length">{{user.about.length}}/{{maxLengthText}}</span>
+          </div>
+          <div class="title-1">
+            <h3>{{'Interests'|translate}}:</h3>
+
+          </div>
+          <div class="content-1">
+            <mat-form-field appearance="fill" class="full-width " style="width: 100%;">
+              <input matInput placeholder="{{'Interests'|translate}}" formControlName="interestsCtrl" [(ngModel)]="user.interests"
+                required>
+              <mat-error *ngIf="infoForm.interestsCtrl.errors?.maxlength">
+                {{'Interests is'|translate}} <strong> {{'have max length is'|translate}} {{maxLengthText}}</strong>
+              </mat-error>
+            </mat-form-field>
+            <span class="float-right alert-length">{{user.interests.length}}/{{maxLengthText}}</span>
+          </div>
+          <div class="title-1">
+            <h3>{{'Specialities'|translate}}:</h3>
+
+          </div>
+          <div class="content-1">
+            <mat-form-field appearance="fill" class="full-width " style="width: 100%;">
+              <input matInput placeholder="{{'Specialities'|translate}}" formControlName="specialitiesCtrl"
+                [(ngModel)]="user.specialities" required>
+              <mat-error *ngIf="infoForm.specialitiesCtrl.errors?.maxlength">
+                {{'Specialities is'|translate}} <strong> {{'have max length is'|translate}} {{maxLengthText}}</strong>
+              </mat-error>
+            </mat-form-field>
+            <span class="float-right alert-length">{{user.specialities.length}}/{{maxLengthText}}</span>
+          </div>
+          <div class="title-1">
+            <h3>{{'Category'|translate}}:</h3>
+
+          </div>
+          <div class="content-1">
+
+            <mat-form-field appearance="fill" class="full-width " style="width: 100%;">
+              <mat-label>{{'Category'|translate}}</mat-label>
+              <mat-select [(value)]="user.category">
+                <mat-option value="male">{{'Male'|translate}}</mat-option>
+                <mat-option value="female">{{'Female'|translate}}</mat-option>
+                <mat-option value="couples">{{'couples'|translate}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div>
+            <button mat-raised-button color="accent" matStepperNext [disabled]="infoFormGroup.invalid">{{'Next'|translate}}</button>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step [stepControl]="fileFormGroup">
+        <ng-template matStepLabel>{{'Upload File'|translate}}</ng-template>
+        <form [formGroup]="fileFormGroup">
+          <div class="example-full-width">
+            <mat-label>{{'Audio file'|translate}}</mat-label>
+            <input formControlName="audioCtrl" type="file" name="image" (change)="fileProgress($event)"
+              accept="audio/*">
+            <mat-error *ngIf="!checkFileSize()">
+              {{'Maximum file size 10Mb .File is required'|translate}}
+            </mat-error>
+          </div>
+          <div>
+            <button mat-raised-button color="accent" matStepperPrevious style="margin-right: 10%;">{{'Back'|translate}}</button>
+            <button mat-raised-button color="accent" [disabled]="fileFormGroup.invalid" matStepperNext>{{'Next'|translate}}</button>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>{{'Done'|translate}}</ng-template>
+        <p>{{'You are now done.'|translate}}</p>
+        <div>
+          <button mat-raised-button color="accent" matStepperPrevious style="margin-right: 10%;">{{'Back'|translate}}</button>
+          <button [disabled]="loading" mat-raised-button color="accent" appDebounceClick (debounceClick)="onSubmit()"
+            [debounceTime]="700">{{'Submit'|translate}}</button>
+        </div>
+      </mat-step>
+    </mat-horizontal-stepper>
+    <mat-vertical-stepper #stepper linear fxShow="false" fxShow.lt-md="true">
+      <mat-step [stepControl]="registerFormGroup">
+        <ng-template matStepLabel>{{'Enter your account'|translate}}</ng-template>
+        <form [formGroup]="registerFormGroup">
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group row">
+                <mat-form-field appearance="fill">
+                  <mat-label for="firstName">{{'First Name'|translate}}</mat-label>
+                  <input type="text" matInput formControlName="firstNameCtrl" [(ngModel)]="user.firstName" />
+                  <mat-error *ngIf="registerFormGroup.controls['firstNameCtrl'].errors?.required">
+                    {{'First Name is required.'|translate}}
+                  </mat-error>
+
+                </mat-form-field>
+              </div>
+
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group row">
+
+                <mat-form-field appearance="fill">
+                  <mat-label for="lastName">{{'Last Name'|translate}}</mat-label>
+                  <input matInput type="text" formControlName="lastNameCtrl" [(ngModel)]="user.lastName" />
+                  <mat-error *ngIf="registerFormGroup.controls['lastNameCtrl'].errors?.required">
+                    {{'Last Name is required.'|translate}}
+                  </mat-error>
+
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group row">
+
+                <mat-form-field appearance="fill">
+                  <mat-label for="password">{{'Password'|translate}}</mat-label>
+                  <input matInput type="password" formControlName="passwordCtrl" [(ngModel)]="user.password" />
+                  <mat-error *ngIf="registerFormGroup.controls['passwordCtrl'].errors?.minlength">
+                    {{'Password has to be at least 8'|translate}}
+                  </mat-error>
+                  <mat-error *ngIf="registerFormGroup.controls['passwordCtrl'].errors?.required">
+                    {{'Password is required.'|translate}}
+                  </mat-error>
+
+                </mat-form-field>
+              </div>
+
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group row">
+
+                <mat-form-field appearance="fill">
+                  <mat-label for="prePassword">{{'Confirm Password'|translate}}</mat-label>
+                  <input matInput type="password" placeholder="{{'Confirm password'|translate}}" formControlName="confirmPassword"
+                    [errorStateMatcher]="matcher">
+                  <mat-error *ngIf="registerFormGroup.hasError('notSame')">
+                    {{'Passwords do not match'|translate}}
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group row">
+
+                <mat-form-field appearance="fill">
+                  <mat-label for="email">{{'Email'|translate}}</mat-label>
+                  <input matInput type="text" formControlName="emailCtrl" [(ngModel)]="user.email" />
+                  <mat-error *ngIf="registerFormGroup.controls['emailCtrl'].errors?.email">
+                    {{'Enter a valid email'|translate}}
+                  </mat-error>
+                  <mat-error *ngIf="registerFormGroup.controls['emailCtrl'].errors?.required">
+                    {{'Email is required.'|translate}}
+                  </mat-error>
+                </mat-form-field>
+              </div>
+
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group row phoneInput">
+                <label class='pr-4'>{{'Phone'|translate}}</label>
+                <ngx-intl-tel-input [inputId]="'adsasd'" [cssClass]="'custom'" [preferredCountries]="preferredCountries"
+                  [enableAutoCountrySelect]="true" [enablePlaceholder]="true" [searchCountryFlag]="true"
+                  [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]" [selectFirstCountry]="false"
+                  [selectedCountryISO]="CountryISO.UnitedStates" [maxLength]="15" [tooltipField]="TooltipLabel.Name"
+                  [phoneValidation]="true" [(ngModel)]="user.phone" [separateDialCode]="separateDialCode" name="phone"
+                  formControlName="phoneNumberCtrl">
+                </ngx-intl-tel-input>
+                <mat-error *ngIf="registerFormGroup.controls['phoneNumberCtrl'].invalid">
+                  {{'Phone number not valid'|translate}}
+                </mat-error>
+              </div>
+
+            </div>
+          </div>
+          <div>
+            <button mat-raised-button color="accent" matStepperNext [disabled]="registerFormGroup.invalid">{{'Next'|translate}}</button>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step [stepControl]="infoFormGroup">
+        <form [formGroup]="infoFormGroup">
+          <ng-template matStepLabel>{{'Fill out your info'|translate}}</ng-template>
+          <div class="title-1">
+            <h3>{{'About'|translate}}:</h3>
+
+          </div>
+          <div class="content-1">
+            <mat-form-field appearance="fill" class="full-width " style="width: 100%;">
+              <textarea matInput placeholder="{{'About'|translate}}" formControlName="rolesCtrl" [(ngModel)]="user.about"
+                required></textarea>
+              <mat-error *ngIf="infoForm.rolesCtrl.errors?.maxlength">
+                {{'About is'|translate}} <strong> {{'have max length is'|translate}} {{maxLengthText}}</strong>
+              </mat-error>
+            </mat-form-field>
+            <span class="float-right alert-length">{{user.about.length}}/{{maxLengthText}}</span>
+          </div>
+          <div class="title-1">
+            <h3>{{'Interests'|translate}}:</h3>
+
+          </div>
+          <div class="content-1">
+            <mat-form-field appearance="fill" class="full-width " style="width: 100%;">
+              <input matInput placeholder="{{'Interests'|translate}}" formControlName="interestsCtrl" [(ngModel)]="user.interests"
+                required>
+              <mat-error *ngIf="infoForm.interestsCtrl.errors?.maxlength">
+                {{'Interests is'|translate}} <strong> {{'have max length is'|translate}} {{maxLengthText}}</strong>
+              </mat-error>
+            </mat-form-field>
+            <span class="float-right alert-length">{{user.interests.length}}/{{maxLengthText}}</span>
+          </div>
+          <div class="title-1">
+            <h3>{{'Specialities'|translate}}:</h3>
+
+          </div>
+          <div class="content-1">
+            <mat-form-field appearance="fill" class="full-width " style="width: 100%;">
+              <input matInput placeholder="{{'Specialities'|translate}}" formControlName="specialitiesCtrl"
+                [(ngModel)]="user.specialities" required>
+              <mat-error *ngIf="infoForm.specialitiesCtrl.errors?.maxlength">
+                {{'Specialities is'|translate}} <strong> {{'have max length is'|translate}} {{maxLengthText}}</strong>
+              </mat-error>
+            </mat-form-field>
+            <span class="float-right alert-length">{{user.specialities.length}}/{{maxLengthText}}</span>
+          </div>
+          <div class="title-1">
+            <h3>{{'Category'|translate}}:</h3>
+          </div>
+          <div class="content-1">
+            <mat-form-field appearance="fill" class="full-width " style="width: 100%;">
+              <mat-label>{{'Category'|translate}}</mat-label>
+              <mat-select [(value)]="user.category">
+                <mat-option value="male">{{'Male'|translate}}</mat-option>
+                <mat-option value="female">{{'Female'|translate}}</mat-option>
+                <mat-option value="couples">{{'couples'|translate}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div>
+            <button mat-raised-button color="accent" matStepperNext [disabled]="infoFormGroup.invalid">{{'Next'|translate}}</button>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step [stepControl]="fileFormGroup">
+        <ng-template matStepLabel>{{'Upload File'|translate}}</ng-template>
+        <form [formGroup]="fileFormGroup">
+          <div class="example-full-width">
+            <mat-label>{{'Audio file'|translate}}</mat-label>
+            <input formControlName="audioCtrl" type="file" name="image" (change)="fileProgress($event)"
+              accept="audio/*">
+            <mat-error *ngIf="!checkFileSize()">
+              {{'Maximum file size 10Mb .File is required'|translate}}
+            </mat-error>
+          </div>
+          <div>
+            <button mat-raised-button color="accent" matStepperPrevious style="margin-right: 10%;">{{'Back'|translate}}</button>
+            <button mat-raised-button color="accent" [disabled]="fileFormGroup.invalid" matStepperNext>{{'Next'|translate}}</button>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>{{'Done'|translate}}</ng-template>
+        <p>{{'You are now done.'|translate}}</p>
+        <div>
+          <button mat-raised-button color="accent" matStepperPrevious style="margin-right: 10%;">{{'Back'|translate}}</button>
+          <button [disabled]="loading" mat-raised-button color="accent" appDebounceClick (debounceClick)="onSubmit()"
+            [debounceTime]="700">{{'Submit'|translate}}</button>
+        </div>
+      </mat-step>
+    </mat-vertical-stepper>
+  </div>
+</div>
+<app-footer></app-footer>

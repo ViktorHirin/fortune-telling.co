@@ -1,0 +1,36 @@
+<div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px" style="margin:auto">
+    <div fxFlex="100"  >
+      <div class="mat-elevation-z8">
+        <div class="payment-form">
+          <mat-form-field class="payment-full-width">
+            <mat-label> {{'Name'|translate}}</mat-label>
+            <input matInput type="text" [(ngModel)]="packageItem.name">
+          </mat-form-field>
+          <mat-form-field class="payment-full-width">
+            <mat-label> {{'Price'|translate}}</mat-label>
+            <input matInput type="number" [(ngModel)]="packageItem.price">
+          </mat-form-field>
+          <mat-form-field class="payment-full-width">
+            <mat-label> {{'Token'|translate}}</mat-label>
+            <input matInput type="number" [(ngModel)]="packageItem.token">
+          </mat-form-field>
+          <mat-form-field class="payment-full-width">
+              <mat-label>  {{'Flex FormId'|translate}} </mat-label>
+              <input matInput type="text" [(ngModel)]="packageItem.flexformId">
+          </mat-form-field>
+          <mat-form-field class="payment-full-width">
+            <mat-label>  {{'Description'|translate}} </mat-label>
+            <input matInput type="text" [(ngModel)]="packageItem.description">
+        </mat-form-field>
+            <button mat-raised-button  color="accent" (click)="onSubmit()"
+            ngclass="btn btn-danger btn-sm">{{'Save'|translate}}</button>
+            <button mat-raised-button  (click)="onCloseClick()"
+            ngclass="btn btn-danger btn-sm">{{'Close'|translate}}</button>
+      </div>
+      </div>
+  
+    </div>
+    <!-- <div fxFlex="40">
+          <app-widget-pie [data]="pieChart"></app-widget-pie>
+      </div> -->
+  </div>

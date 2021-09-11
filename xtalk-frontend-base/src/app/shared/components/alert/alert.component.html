@@ -1,0 +1,23 @@
+<!-- <div class="toast-area" id="toasts"  *ngFor="let alert of alerts" >
+    <div class="toast">
+      <div class="toast " id="clonemother">
+        <div class="toast-content ">
+        <div class="text text-center {{cssClass(alert)}}"><strong><h5 class="message ">
+        <span class="message" [innerHTML]="alert.message"></span>
+        <span (click)="removeAlert(alert)" class="close">&times;</span>
+        </h5>
+        </strong>
+      </div>
+        
+        </div>
+      </div>
+    </div>
+</div> -->
+<div fxLayout="row" class="snack-container {{cssClass()}}" >
+  <div>
+    <mat-icon>{{getIcon}}</mat-icon>
+  </div>
+  <div>
+    <span>{{data.message}}</span>
+  </div>
+</div>

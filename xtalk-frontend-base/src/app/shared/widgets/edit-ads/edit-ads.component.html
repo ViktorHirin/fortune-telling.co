@@ -1,0 +1,53 @@
+<div class="container">
+
+<div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px" style="margin:auto">
+    <div fxFlex="100"  >
+      <div class="">
+        <div class="payment-form">
+          <div class="payment-full-width">
+              <mat-label> {{'File'|translate}}</mat-label>
+              <p class="alert alert-warning" *ngIf="message">{{message}}</p>
+              <img   src="{{previewUrl}}" alt="" style="max-width: 100%;max-height: 200px ;">
+              <input class="btn btn-danger btn-block upload-btn" type="file" name="image" (change)="fileProgress($event)" accept="image/x-png,image/gif,image/jpeg">
+          </div>
+          <div class="row">
+            <mat-form-field class="col-sm-6">
+              <mat-label> {{'Title'|translate}}</mat-label>
+              <input matInput type="text" [(ngModel)]="ads.title">
+            </mat-form-field>
+            <mat-form-field class="col-sm-6">
+              <mat-label> {{'Description'|translate}}</mat-label>
+              <input matInput type="text" [(ngModel)]="ads.description">
+            </mat-form-field>
+          </div>
+          <div class="row">
+            <mat-form-field class="col-sm-6">
+                  <mat-label>{{'Postion'|translate}}</mat-label>
+                  <mat-select [(value)]="ads.postion">
+                    <mat-option value="top">{{'Header'|translate}}</mat-option>
+                    <mat-option value="footer">{{'Footer'|translate}}</mat-option>
+                  </mat-select>
+            </mat-form-field>
+            <!-- <mat-form-field class="col-sm-6">
+                  <mat-label>Type</mat-label>
+                  <mat-select [(value)]="ads.type">
+                    <mat-option value="image">Image</mat-option>
+                    <mat-option value="text">Text</mat-option>
+                    <mat-option value="video">Video</mat-option> 
+                  </mat-select>
+            </mat-form-field> -->
+          </div>
+            <button mat-raised-button  color="accent" (click)="onSubmit()"
+            ngclass="btn btn-danger btn-sm">{{'Save'|translate}}</button>
+            <button mat-raised-button  (click)="onCloseClick()"
+            ngclass="btn btn-danger btn-sm">{{'Close'|translate}}</button>
+      </div>
+      </div>
+  
+    </div>
+    <!-- <div fxFlex="40">
+          <app-widget-pie [data]="pieChart"></app-widget-pie>
+      </div> -->
+  </div>
+  
+</div>

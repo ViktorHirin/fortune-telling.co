@@ -1,0 +1,19 @@
+.scroll-user,.list-chat{
+    overflow-y: scroll;
+}
+
+.load_more_message{	
+   background: #9bc3ec;
+    color: #000;
+    border-radius: 10px;
+    height: 20px;
+    width: 80px;
+    font-size: 10px;
+    text-align: center;
+    margin: auto;
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    line-height: 10px;
+
+}

@@ -1,0 +1,10 @@
+var express = require('express');
+var controller = require('./index.controller');
+var auth = require('../../auth.service');
+var router = express.Router();
+var multipart = require('connect-multiparty');
+var multipartMiddleware = multipart();
+router.put('/',auth.isAdmin(),controller.updatedStatic);
+router.delete('/:id',auth.isAdmin(),controller.deleteSaticPage);
+router.get('/all',auth.isAdmin(),controller.getAllPage);
+module.exports = router;

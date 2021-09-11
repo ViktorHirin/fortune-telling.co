@@ -1,0 +1,18 @@
+<app-header></app-header>
+<mat-drawer-container>
+    <mat-drawer mode="side" [opened]="sideBarOpen">
+        <app-sidebar (toggleSideBarForMe)="sideBarToggler($event)"></app-sidebar>
+    </mat-drawer>
+    <mat-drawer-content [ngClass]="{'sideBarOpen': sideBarOpen , 'sideBarClose': !sideBarOpen }" >
+        <button (click)="sideBarToggler($event)" mat-fab *ngIf="!sideBarOpen" class="" fxShow="true" fxShow.lt-md="false">
+            <mat-icon>{{'menu'|translate}}</mat-icon>
+        </button>
+        <button (click)="sideBarTogglerMoblie($event)" mat-fab *ngIf="!sideBarOpen" class="" fxShow="false" fxShow.lt-md="true">
+            <mat-icon *ngIf="!menuMoble">{{'menu'|translate}}</mat-icon>
+            <mat-icon *ngIf="menuMoble">{{'close'|translate}}</mat-icon>
+        </button>
+        <app-mobile-sidebar *ngIf="menuMoble" [@fadeAnimation]="menuMoble" ></app-mobile-sidebar>
+        <router-outlet></router-outlet>
+    </mat-drawer-content>
+</mat-drawer-container>
+<app-dashboard-footer></app-dashboard-footer>

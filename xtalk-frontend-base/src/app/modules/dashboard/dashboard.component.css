@@ -1,0 +1,35 @@
+.stats-cards   .mat-card {
+    overflow: hidden;
+   
+}
+table {
+  width: 100%;
+}
+
+@media all and (max-width: 768px) {
+  .mat-card {
+      flex: 1 1 100%;
+      box-sizing: border-box;
+      max-width: 25%;
+      font-size: 0.8rem;
+      padding:10px
+  }
+}
+@media all and (max-width: 599px) {
+  .mat-card {
+      flex: 1 1 100%;
+      box-sizing: border-box;
+      max-width: 25%;
+      font-size: 0.65rem;
+      padding: 5px;
+  }
+}
+@media all and (max-width: 480px) {
+  .mat-card {
+      flex: 1 1 100%;
+      box-sizing: border-box;
+      max-width: 25%;
+      font-size: 0.4rem;
+      padding:5px
+  }
+}

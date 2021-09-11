@@ -1,0 +1,27 @@
+<div class="rating-form">
+    <h2>{{'Review & Rating'|translate}}</h2>
+    <form [formGroup]="reviewForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <textarea placeholder="{{'Add a comment'|translate}}" rows="5" type="text" formControlName="content" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.content.errors }" ></textarea>
+              <div *ngIf="submitted && f.content.errors" class="invalid-feedback">
+                  <div *ngIf="f.content.errors.required">{{'First Name is required'|translate}}</div>
+              </div>
+        </div>
+        <div class="form-group">
+            <ng-template #t let-fill="fill">
+                <span class="star" [class.full]="fill === 100">
+                  <span class="half" [style.width.%]="fill">&#9733;</span>&#9733;
+                </span>
+              </ng-template>
+            <ngb-rating [formControl]="ratingFormCtrl" [starTemplate]="t"  [(rate)]="rating" [max]="5">
+               
+            </ngb-rating>
+            <div class="form-text small">
+              <div *ngIf="ratingFormCtrl.valid" class="text-success">{{'Thanks!'|translate}}</div>
+              <div *ngIf="ratingFormCtrl.invalid" class="text-danger">{{'Please rate'|translate}} {{model.lastName}}</div>
+            </div>
+             <span>({{'Choose Rating'|translate}}) {{ratingFormCtrl.value}}</span>
+        </div>
+        <button type="button"  [disabled]="f.content.errors?true:false"  (click)="onSubmit()" class="btn btn-danger">{{'Submit'|translate}}</button>
+    </form>
+</div>

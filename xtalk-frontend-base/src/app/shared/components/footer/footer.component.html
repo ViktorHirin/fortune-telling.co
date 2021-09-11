@@ -1,0 +1,43 @@
+<div class="footer" *ngIf="pageConfig">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-5 logo">
+        <img src="{{pageConfig.getLogo()}}">
+        <div class="info-footer">
+          <p>{{'Anonymous, Safe & Secure'|translate}}</p>
+          <p>{{'Great Quality Audio'|translate}}</p>
+          <p>{{'No Phone Charges, Phone and Internet Calling, Worldwide Accessible'|translate}}</p>
+          <a href="/sign-up" class="btn signup-footer_btn" style="border: 2px solid #fff;">{{'Sign up now for FREE !'|translate}}</a>
+        </div>
+      </div>
+      <div class="col-sm-3 list-menu">
+        <h3>{{'STATIC PAGE'|translate}}</h3>
+        <br>
+        <ul class="none-list d-flex flex-column list_static-page">
+          <!-- <li *ngFor="let pageItem of listStaticPage flex-fill"> <a href="/page/{{pageItem.slug}}">{{pageItem.title}}</a></li> -->
+          <!-- <li *ngFor="let pageItem of listStaticPage flex-fill"> <a routerLink="/{{pageItem.slug}}">{{pageItem.title}}</a></li> -->
+          <li> <a routerLink="/terms-conditions">{{'Terms & Conditions'|translate}}</a></li>
+          <li> <a routerLink="/acceptable-use-policy">{{'Acceptable Use Policy'|translate}}</a></li>
+          <li> <a routerLink="/record-keeping-compliance">{{'Record Keeping Compliance'|translate}}</a></li>
+          <li> <a routerLink="/faq">{{'FAQs'|translate}}</a></li>
+          <li> <a routerLink="/how-to-call">{{'How To Call'|translate}}</a></li>
+        </ul>
+      </div>
+      <div class="col-sm-4">
+        <h3>{{'E-NEWSLETTER'|translate}}</h3>
+        <div class="form-newletter">
+          <input [(ngModel)]="emailNewsLetter"  type="text" placeholder="{{'Enter your email'|translate}}" name="" style="color:#fff">
+          <button (click)="registerNewLetter()" class="btn btn-danger">{{'REGISTER'|translate}}</button>
+        </div>
+        <div class="social-media">
+          <li><a href="{{pageConfig.fb}}"><i class="fa fa-facebook"></i></a></li>
+          <li><a href="{{pageConfig.twitter}}"><i class="fa fa-twitter"></i></a></li>
+          <li><a href="{{pageConfig.gg}}"><i class="fa fa-instagram"></i></a></li>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="copy-right" *ngIf="pageConfig">
+  {{pageConfig.footer}}
+</div>

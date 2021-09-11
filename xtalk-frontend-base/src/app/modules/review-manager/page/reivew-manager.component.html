@@ -1,0 +1,86 @@
+<h2 class="title-list text-center">{{'Manager Review & Rating'|translate}}</h2>
+<br>
+<mat-divider></mat-divider>
+<br>
+<div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px">
+    <div fxLayout="row" fxLayoutAlign="space-between center" clas="m-2" fxLayoutGap="20px">
+        <div fxFlex="60" fxLayoutGap="20px">
+            <div class="acction-toolbar">
+                <!-- <button  class ="m-2" fxFlex="15" mat-raised-button color="primary" (click)="addNewUser()"><i  class="fa fa-plus mr-1"> </i>Add User</button> -->
+                <!-- <button *ngIf="assigned" class ="m-2" fxFlex="15" mat-raised-button color="accent" (click)="deActiveReviews(assigned)"><i  class="fa fa-ban mr-1"></i>De-Acitive</button>
+                <button *ngIf="assigned" fxFlex="15" class ="m-2" mat-raised-button color="bassic" (click)="activeReviews(assigned)"> <i  class="fa fa-check mr-1"></i>Acitive</button>
+                <button *ngIf="assigned" fxFlex="15" class ="m-2" mat-raised-button color="warn" (click)="deleteReviews(assigned)"><i  class="fa fa-trash mr-1"></i>Delete</button> -->
+            </div>
+        </div>
+        <!-- <div fxFlex="40" fxLayoutGap="20px">
+            <mat-form-field>
+                <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+              </mat-form-field>
+        </div> -->
+    </div>
+</div>
+
+<div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px">
+    <div fxFlex="100">
+        <div class="mat-elevation-z8">
+            <mat-table [dataSource]="listReviews" matSort >
+                <!-- Checkbox Column -->
+                <ng-container matColumnDef="select">
+                    <mat-header-cell *matHeaderCellDef>
+                        <mat-checkbox (change)="HeaderCheckBoxChanged($event);$event ? masterToggle() : null" 
+                        [checked]="selection.hasValue() && isAllSelected()"
+                        [indeterminate]="selection.hasValue() && !isAllSelected()">
+                        </mat-checkbox>
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let review">
+                        <mat-checkbox (click)="$event.stopPropagation()" (change)="CheckBoxChanged($event,review.id);$event ? selection.toggle(review) : null"
+                        [checked]="selection.isSelected(review) || review.IsAssigned">
+                        </mat-checkbox>
+                    </mat-cell>
+                </ng-container>
+                <!-- From Column -->
+                <ng-container matColumnDef="from">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> {{'From'|translate}}</mat-header-cell>
+                    <mat-cell *matCellDef="let review"> {{review.reviewerId.firstName + review.reviewerId.lastName}} </mat-cell>
+                </ng-container>
+
+                <!--To Column -->
+                <ng-container matColumnDef="to">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> {{'To'|translate}}</mat-header-cell>
+                    <mat-cell *matCellDef="let review"> {{review.userId.firstName +review.userId.lastName}}</mat-cell>
+                </ng-container>
+
+                 <!--Rating Column -->
+                 <ng-container matColumnDef="rating">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> {{'Rating'|translate}} </mat-header-cell>
+                    <mat-cell *matCellDef="let review"> {{review.rating}}</mat-cell>
+                </ng-container>
+
+                <!-- Content Column -->
+                <ng-container matColumnDef="content">
+                    <mat-header-cell *matHeaderCellDef > {{'Content'|translate}}  </mat-header-cell>
+                    <mat-cell *matCellDef="let review"> {{getContentReview(review.content)}}</mat-cell>
+                </ng-container>
+
+                <!-- Date Column -->
+                <ng-container matColumnDef="date">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> {{'Date'|translate}}  </mat-header-cell>
+                    <mat-cell *matCellDef="let review"> {{review.createdAt | date:'shortDate'}} </mat-cell>
+                </ng-container>
+
+                <!-- Action Column-->
+                <ng-container matColumnDef="action">
+                    <mat-header-cell  *matHeaderCellDef > {{'Actions'|translate}} </mat-header-cell>
+                    <mat-cell *matCellDef="let review"  fxLayout="row wrap" >
+                       
+                        <button type="button" class="btn btn-accent" (click)="deleteReivew(review._id)" mat-raised-button color="accent"><i class="fa fa-trash"></i></button>
+                        
+                    </mat-cell>
+                  </ng-container>
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </mat-table>
+        <mat-paginator  [length]="resultsLength" [pageSizeOptions]="[30,50,100,500]"></mat-paginator>
+        </div>
+    </div>
+</div>

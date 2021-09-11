@@ -1,0 +1,45 @@
+<div *ngIf="loading">
+    <app-widget-area [data]="bigChart" title="Chart" subTitle="Test"></app-widget-area>
+</div>
+
+<br>
+
+<mat-divider></mat-divider>
+
+<br>
+
+<div fxLayout="row" *ngIf="this.reports" fxLayoutAlign="space-between center" fxLayoutGap="20px" fxLayoutGap.lt-sm="10px" class="stats-cards">
+    <mat-card fxFlex="25">
+        <!-- <app-widget-card  label="New Users" title="{{this.reports.newUsers}}" percentage="50" [data]="cards"></app-widget-card> -->
+        {{'New Users'|translate}}: {{this.reports.newUsers}}
+    </mat-card>
+    <mat-card fxFlex="25">
+        <!-- <app-widget-card  label="Total Model" title="{{this.reports.totalMode}}" percentage="40" [data]="cards"></app-widget-card> -->
+        {{'Total Clairvoyants'|translate}}: {{this.reports.totalModel}}
+    </mat-card>
+    <mat-card fxFlex="25">
+        <!-- <app-widget-card  label="Total Review" title="this.reports.totalReview" percentage="30" [data]="cards"></app-widget-card> -->
+        {{'Total Review'|translate}}: {{this.reports.totalReview}}
+    </mat-card>
+    <mat-card fxFlex="25">
+        <!-- <app-widget-card  label="Total WithDraw" title="{{this.reports.withdraw.total}}" percentage="20" [data]="getWithdraw()"></app-widget-card> -->
+        {{'Total WithDraw'|translate}}: {{this.reports.withdraw?.total}}
+    </mat-card>
+</div>
+
+<br>
+
+<mat-divider></mat-divider>
+
+<br>
+
+<div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px">
+    
+    <div fxFlex="40" *ngIf="this.pieChart.length">
+        <app-widget-pie [data]="pieChart" title="WithDraw Chart"></app-widget-pie>
+    </div>
+</div>
+
+<br>
+<br>
+<br>

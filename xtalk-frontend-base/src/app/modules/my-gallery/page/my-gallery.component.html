@@ -1,0 +1,105 @@
+<app-navigation></app-navigation>
+<div class="model-home" *ngIf="user">
+  <div class="container">
+    <div class="hea-top-main">
+      <div class="thumbnail" *ngIf="user">
+        <a> {{'HOME'|translate}}</a> >
+        <a>{{ user.role}}</a> >
+        <span>{{ user.getFullName() }}</span>
+      </div>
+      <div class="pull-right">
+      </div>
+    </div>
+    <div class="detail-page">
+      <div class="row">
+        <div class="col-sm-5 col-md-4">
+          <div class="item-model item-model-detail">
+            <div class="pic-model">
+              <a *ngIf="user.avatarUrl != null ; else notAvatar;"><img src="{{ user.avatarUrl}}"></a>
+              <ng-template #notAvatar>
+                <a href="#"><img src="assets/images/img.jpg"></a>
+              </ng-template>
+            </div>
+            <div class="txt-model">
+              <div class="title-model">
+                <h3><a href="#"> {{ user.firstName }} {{ user.lastName}} </a></h3>
+                <div *ngIf="user && user.age ; else notAge;" class="age-item">{{'Age'|translate}} - {{user.age}}<span
+                    [ngClass]="{'online':user.status,'offline':!user.status}" class="status"></span></div>
+                <ng-template #notAge>
+                  <div class="age-item">{{'Age'|translate}} - {{user.age}}<span
+                      [ngClass]="{'online':user.status,'offline':!user.status}" class="status"></span></div>
+                </ng-template>
+              </div>
+              <div class="star-v">
+                <ng-template #t let-fill="fill">
+                  <span class="star" [class.full]="fill === 100">
+                    <span class="half" [style.width.%]="fill">&#9733;</span>&#9733;
+                  </span>
+                </ng-template>
+                <ngb-rating [starTemplate]="t" [(rate)]="user.rating" [max]="5" [readonly]="true">
+
+                </ngb-rating>
+
+              </div>
+              <div class="Language-model">{{'LANGUAGE'|translate}}: {{ user.languages  }}</div>
+              <div class="city-model" *ngIf="user.location">City: {{ user.location?.city || ''}}</div>
+              <div class="audio-detail">
+                <audio src="{{user.audioUrl}}" controls></audio>
+              </div>
+              <div class="button-right-detail">
+                <!-- <button [routerLink]="['/message', model.id]" class="btn btn-danger-ouline btn-block"><i class="fa fa-envelope"></i> Send Message</button> -->
+                <!-- <button (click)="call()" class="btn btn-success btn-block"><i class="fa fa-volume-up"></i> Call me now!</button> -->
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-7 col-md-8">
+          <div class="box-detail">
+            <div class="title-box-detail">
+              <i class="fa fa-info"></i> {{'How I feel today'|translate}}
+            </div>
+            <div class="body-box-detail">
+              <div class="row row-img-detail">
+                <div class="col-sm-2" *ngFor="let gallery of listGallery;trackBy: trackElement;let i = index;">
+                  <span (click)="deleteGallery(gallery._id)" class="close">&times;</span>
+                  <img class="mat-card-image" src="{{host}}{{gallery.fileUrlBase}}"
+                    alt="{{user.firstName}} {{user.lastName}}">
+                </div>
+
+              </div>
+            </div>
+          </div>
+          <div class="box-detail">
+            <div class="title-box-detail">
+              <i class="fa fa-info"></i> {{'New Images'|translate}}
+            </div>
+            <div class="body-box-detail row" *ngIf="fileData ">
+              <div class="col-sm-5">
+                <div class="preview-img">
+                  <img class="mat-card-image" src="{{previewUrl}}" alt="{{user.firstName}} {{user.lastName}}">
+                </div>
+              </div>
+              <div class="col-sm-7">
+                <div class="preview-content">
+                  <h5> {{'File Name'|translate}} : {{fileData.name}}</h5>
+                  <br>
+                  <h5> {{'Size'|translate}} : {{fileData.size}}</h5>
+                  <br>
+                  <h5> {{'Type'|translate}} : {{fileData.type}}</h5>
+                  <br>
+                </div>
+                <br>
+                <button [disabled]="uploading" type="button" (click)="updateGallery()" class="btn btn-danger"
+                  mat-raised-button color="accent">Submit </button>
+              </div>
+            </div>
+            <input class="btn btn-danger btn-block upload-btn" type="file" name="image" (change)="fileProgress($event)">
+            <p class="alert alert-warning">{{'*Please upload image of dimension 250 x 250 px'|translate}}</p>
+            <ng-template #unableUpload>
+              <p class="text-center alert alert-danger">{{'Maximum number of Files'|translate}} :5</p>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

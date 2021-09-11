@@ -1,0 +1,34 @@
+<h2 class="title-list text-center">Seo Config</h2>
+<br>
+<mat-divider></mat-divider>
+<br>
+
+
+<div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px">
+  <div fxFlex="80">
+    <div class=" container">
+      <div class="payment-form">
+        <mat-card class="example-card">
+          <mat-card-content>
+            <mat-form-field class="payment-full-width">
+              <mat-label> {{'Title SEO'|translate}}</mat-label>
+              <input matInput type="text" [(ngModel)]="seoConfig.title">
+            </mat-form-field>
+            <mat-form-field class="payment-full-width">
+              <mat-label> {{'Description SEO'|translate}}</mat-label>
+              <input matInput type="text" [(ngModel)]="seoConfig.description">
+            </mat-form-field>
+            <mat-form-field class="payment-full-width">
+              <mat-label> {{'Keyword SEO'|translate}}</mat-label>
+              <input matInput type="text" [(ngModel)]="seoConfig.keyword">
+            </mat-form-field>
+            <button mat-raised-button  color="accent" (click)="onSubmit()" [disabled]="loading"
+                    ngclass="btn btn-danger btn-sm">{{'Save'|translate}}</button>
+          </mat-card-content>
+
+        </mat-card>
+      </div>
+    </div>
+
+  </div>
+</div>

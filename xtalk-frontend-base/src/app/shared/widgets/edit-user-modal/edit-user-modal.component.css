@@ -1,0 +1,9 @@
+.preivew img{
+    max-width: 100%;
+    max-height: 300px;
+    height: auto;
+}
+.edit-user_dialog{
+    padding: 0;
+    overflow-y: scroll;
+}

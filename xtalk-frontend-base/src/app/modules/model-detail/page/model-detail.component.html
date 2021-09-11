@@ -1,0 +1,170 @@
+<app-navigation></app-navigation>
+<div class="model-home" *ngIf="model">
+  <div class="container">
+    <div class="hea-top-main">
+      <div class="thumbnail" *ngIf="model">
+        <a [routerLink]="['/home']"> {{'HOME'|translate}}</a> >
+        <a [routerLink]="['/models']">{{ model.role | uppercase}}</a> >
+        <span>{{ model.getFullName() }}</span>
+      </div>
+      <div class="pull-right" *ngIf="!user || user.role=='member'">
+        <button *ngIf="!model.isCalling && !model.doNotDisturb" (click)="call()" class="btn btn-success"><i
+            class="fa fa-volume-control-phone"></i> {{'Call me now!'|translate}}</button>
+        <button *ngIf="model.isCalling || model.doNotDisturb" (click)="call()" class="btn btn-dangery btn-block"><i
+            class="fa fa-volume-up"></i> {{'Clairvoyant Is Busy'|translate}}</button>
+      </div>
+    </div>
+    <div class="detail-page">
+      <div class="row">
+        <div class="col-sm-5 col-md-4">
+          <div class="item-model item-model-detail">
+            <div class="pic-model">
+              <a *ngIf="model.avatarUrl != null ; else notAvatar;"><img src="{{ model.avatarUrl}}" ></a>
+              <ng-template #notAvatar>
+              <!-- <a href="#"><img src="/assets/images/img.jpg"></a> -->
+              </ng-template>
+            </div>
+            <div class="txt-model">
+              <div class="title-model">
+                <h3><a href="#"> {{ model.firstName }} {{ model.lastName}} </a></h3>
+            <!--    <div *ngIf="model && model.age ; else notAge;" class="age-item">Age - {{model.age}}<span
+                    [ngClass]="{'online':model.status,'offline':!model.status}" class="status"></span></div> -->
+                <ng-template #notAge>
+                <!--  <div class="age-item">Age - {{model.age}}<span
+                      [ngClass]="{'online':model.status,'offline':!model.status}" class="status"></span></div> -->
+                </ng-template>
+              </div>
+              <div class="star-v">
+                <ng-template #t let-fill="fill">
+                  <span class="star" [class.full]="fill === 100">
+                    <span class="half" [style.width.%]="fill">&#9733;</span>&#9733;
+                  </span>
+                </ng-template>
+                <ngb-rating [starTemplate]="t" [(rate)]="model.rating" [max]="5" [readonly]="true">
+
+                </ngb-rating>
+
+              </div>
+              <div class="Language-model">{{'LANGUAGE'|translate}}: {{ model.languages |  uppercase }}</div>
+              <div class="city-model" *ngIf="model.location">{{'City'|translate}}: {{ model.location?.city || ''}}</div>
+              <div class="audio-detail">
+                <audio src="{{model.audioUrl}}" controls></audio>
+              </div>
+              <div class="button-right-detail"  *ngIf="!user || user.role=='member' ">
+                <button [routerLink]="['/message', model.id]" class="btn btn-danger-ouline btn-block"><i
+                    class="fa fa-envelope"></i> {{'Send Message'|translate}}</button>
+                <button *ngIf="!model.isCalling && !model.doNotDisturb" (click)="call()" class="btn btn-success btn-block"><i
+                    class="fa fa-volume-up"></i> {{'Call me now!'|translate}}</button>
+                <button *ngIf="model.isCalling || model.doNotDisturb" (click)="call()" class="btn btn-danger btn-block"><i
+                    class="fa fa-volume-up"></i> {{'Clairvoyant Is Busy'|translate}}</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="box-pink">
+            <div class="head-box-pink">
+              <i class="fa fa-question-circle"></i> {{'Why choose us?'|translate}}
+            </div>
+            <div class="body-box-pink">
+              <ul class="list-1">
+                <li><a href="#">{{'Anonymous, Safe & Secure'|translate}}</a></li>
+                <li><a href="#">{{'Speak in Multiple Languages'|translate}}</a></li>
+                <li><a href="#">{{'Great Audio Quality'|translate}}</a></li>
+                <li><a href="#">{{'No Phone Charges'|translate}}</a></li>
+                <li><a href="#">{{'Phone and Internet Calling'|translate}}</a></li>
+                <li><a href="#">{{'Worldwide Accessible'|translate}}</a></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="box-pink">
+            <div class="head-box-pink">
+              <i class="fa fa-lock"></i> {{'Your privacy is important!'|translate}}
+            </div>
+            <div class="body-box-pink">
+              <p>At <a href="{{homeUrl}}">{{title}}</a> {{'we value your privacy very much.'|translate}} {{'All our calls will be handled with full discretion.'|translate}} 
+                {{'To protect your privacy, charges will be processed securely and will appear discreetly as Verotel*vtsup.com or Epoch.com on your credit card statement.'|translate}}
+                {{'No mention of phone sex or any adult related term.'|translate}}
+              </p>
+              <img src="assets/images/ssl.png">
+            </div>
+          </div>
+
+        </div>
+        <div class="col-sm-7 col-md-8">
+          <div class="box-detail">
+            <!-- <div class="title-box-detail">
+              <i class="fa fa-info"></i> How I feel today
+            </div> -->
+            <div class="body-box-detail">
+              <!-- <div class="row row-img-detail" *ngIf='listGallery.length'>
+                <div class="col-sm-2" *ngFor="let gallery of listGallery;let i = index">
+                  <img class="mat-card-image" src="{{host}}{{gallery.fileUrlBase}}" (click)="viewImage(i)"
+                    alt="{{model.firstName}} {{model.lastName}}">
+                </div>
+              </div> -->
+              <div class="box-detail">
+                <div class="title-box-detail">
+                  <i class="fa fa-info"></i> {{'about'|translate}}
+                </div>
+                <div class="body-box-detail">
+                  {{model.about}}
+                </div>
+              </div>
+              <div class="box-detail">
+                <div class="title-box-detail">
+                  <i class="fa fa-thumbs-up"></i> {{'Specialities'|translate}}
+                </div>
+                <div class="body-box-detail">
+                  {{model.specialities}}
+                </div>
+              </div>
+              <div class="box-detail">
+                <div class="title-box-detail">
+                  {{'What other callers said about me'|translate}}
+                </div>
+                <div class="body-box-detail">
+                  <table class="table-comment">
+                    <tr *ngFor="let reviewItem of listReviews;">
+                      <td>{{timeHelper.timeDifference(now,reviewItem.createdAt)}}</td>
+                      <td><strong>{{reviewItem.reviewer.firstName + " " + reviewItem.reviewer.lastName}}</strong></td>
+                      <td>
+                        <div class="list-star">
+                          <ng-template #t let-fill="fill">
+                            <span class="star" [class.full]="fill === 100">
+                              <span class="half" [style.width.%]="fill">&#9733;</span>&#9733;
+                            </span>
+                          </ng-template>
+                          <ngb-rating [starTemplate]="t" [(rate)]="reviewItem.rating" [max]="5" [readonly]="true">
+
+                          </ngb-rating>
+                        </div>
+                      </td>
+                      <td>{{reviewItem.content}}</td>
+
+                    </tr>
+                  </table>
+                  <a [routerLink]="['/model/all-review',model.id]" class="btn btn-danger btn-sm">{{'See All Reviews'|translate}}</a>
+                </div>
+              </div>
+              <div class="box-detail">
+                <div class="title-box-detail bg-pink">
+                  {{'Available operators'|translate}}
+                </div>
+                <div class="body-box-detail">
+                  <div class="row">
+                    <div *ngFor="let modelItem of availableModel ;  let i = index" class="col-sm-6 col-md-4">
+                      <app-model-card [model]="modelItem" [size]="'medium'"></app-model-card>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-photo-swipe #photoSwipe></app-photo-swipe>
+  <app-footer></app-footer>

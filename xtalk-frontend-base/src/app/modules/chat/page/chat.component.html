@@ -1,0 +1,75 @@
+<app-navigation></app-navigation>
+<div class="model-chat">
+  <div class="container">
+  <div class="hea-top-main">
+    <div class="thumbnail">
+      <a href="#">{{'Home'|translate}} </a>  >  
+      <a href="#">{{user.firstName}} {{user.lastName}} </a>  >   
+      <span>{{'Chat'|translate}}</span>
+    </div>
+  </div>
+  <div class="chat-main" #chatMain  [ngClass]="toogleChatClicked?'active':'' ">
+    <span class="toogle-chat" #toogleChat (click)="toogleChatClicked=!toogleChatClicked"><i class="fa fa-users"></i></span>
+    <div class="left-main">
+      <div class="search-chat">
+        <button><i class="fa fa-search"></i></button>
+        <input type="text" name="" placeholder="{{'Search'|translate}}" [(ngModel)]="queryString">
+      </div>
+      <div class="scroll-user">
+        <mat-list itemSize="50" minBufferPx="200" maxBufferPx="400" 
+        class="example-viewport list-user" *ngIf="listMessages"> 
+          <mat-list-item *ngFor='let roomItem of listRoom| searchableRoom:queryString : searchableRoom'>
+            <div class="item-user" *ngIf="user.role=='model' && roomItem.userId;else memberlist">
+              <div class="pic-user"><img matListAvatar src="{{imageHelper.getAvatarLinkV2(roomItem.userId,roomItem.userId.avatarPath,'thumbnail')}}"></div>
+              <a matLine (click)="beginRoom(roomItem.id,roomItem.userId)">{{roomItem.userId.firstName }} {{roomItem.userId.lastName }}</a>
+              <p *ngIf="listMessages.has(roomItem.id)&& listMessages.get(roomItem.id)[listMessages.get(roomItem.id).length -1];">{{ listMessages.get(roomItem.id)[listMessages.get(roomItem.id).length -1].text}}</p>
+            </div>
+            <ng-template  #memberlist>
+              <div class="item-user" *ngIf="roomItem.modelId">
+                <div class="pic-user"><img matListAvatar src="{{ imageHelper.getAvatarLinkV2(roomItem.modelId,roomItem.modelId.avatarPath,'thumbnail')}}"></div>
+                <a matLine (click)="beginRoom(roomItem.id,roomItem.modelId)">{{roomItem.modelId.firstName }} {{roomItem.modelId.lastName }}</a>
+                <p *ngIf="listMessages.has(roomItem.id) && listMessages.get(roomItem.id)[listMessages.get(roomItem.id).length -1];">{{ listMessages.get(roomItem.id)[listMessages.get(roomItem.id).length -1].text}}</p> 
+              </div>
+            </ng-template >
+          </mat-list-item>
+
+        </mat-list>
+      </div>
+    </div>
+    <div class="right-main">
+      <div class="top-chat">
+        <div class="item-user">
+          <div (click)='goModelDetail()' class="pic-user" *ngIf="to && to.avatarUrl"><img class="mat-list-avatar" src="{{imageHelper.getAvatarLinkV2(to,to.avatarPath,'thumbnail')}}"></div>
+          <h3  (click)='goModelDetail()'>{{to.firstName}} {{to.lastName}}</h3>
+          <div *ngIf="to.status == true ;else chatOffline" class="status-top">{{'Online'|translate}} <span class="status online"></span></div>
+          <ng-template #chatOffline>
+            <div  class="status-top"  *ngIf="to.status == false"> {{'Offline'|translate}}<span class="status offline"></span></div>
+          </ng-template>
+        </div>
+        <!-- <div class="pull-right">
+          <button class="btn btn-success"><i class="fa fa-phone"></i> <span>Voice Call</span></button>
+        </div> -->
+      </div>
+      <div class="list-chat" #listChat [scrollTop]="listChat.scrollHeight">
+        <a class="load_more_message"  (click)='loadMoreMessage()' *ngIf="canLoadMessage">
+              {{'load more!'|translate}}
+        </a>
+        <div  *ngFor="let msgItem of messages" [ngClass]="{'chat-2 chat': msgItem.from.id == user.id  || msgItem.from == user.id, 'chat-1 chat': msgItem.from.id == to.id || msgItem.from == to.id}">
+          <app-messages-chat [message]="msgItem" [to]="to" [user]="user"></app-messages-chat>
+        </div>
+      </div>
+
+      <div class="form-message">
+        <input #imgupload type="file" id="imgupload" style="display:none"   accept="image/x-png,image/gif,image/jpeg"  (change)="attachImg($event)"/>
+        <textarea placeholder="{{'Enter Message'|translate}}" [(ngModel)]="message" (keyup)="$event.keyCode==13 && sendMessage()"></textarea>
+        <div class="right-message">
+          <!-- <div class="camera-message"><a href="javascript:void(0)"><i class="fa fa-camera"></i></a></div> -->
+          <!-- <div class="attach-message"><a (click)="attachMessage()"><i class="fa fa-paperclip"></i></a></div> -->
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+</div>
+<app-footer></app-footer>

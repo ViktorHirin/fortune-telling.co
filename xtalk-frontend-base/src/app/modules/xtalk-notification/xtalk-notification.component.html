@@ -1,0 +1,76 @@
+<app-navigation></app-navigation>
+<div class="model-home">
+    <div class="container">
+    <div class="hea-top-main">
+        <div class="thumbnail">
+            <a [routerLink]="['/home']"> {{'HOME'|translate}}</a>   >  
+            <a [routerLink]="['/category', user.role]">{{ user.role }}</a>   >  
+            <span>{{ user.firstName+"  "+user.lastName }}</span>
+            <span>{{'Notification'|translate}}</span>
+        </div>
+        
+    </div>
+    
+    
+    <div class="detail-page">
+        <div class="row">
+            <div class="col-sm-5 col-md-4">
+                <div class="item-model item-model-detail">
+                    <div class="pic-model review avatarImg">
+                        <img  *ngIf="user.avatarUrl;else notAvatar" src="{{user.avatarUrl}}" alt="">
+                        <ng-template #notAvatar>
+                        <img  src="assets/images/img.jpg" width="100%">
+                        </ng-template>
+        
+                    </div>
+                    <div class="txt-model">
+                        <div class="title-model">
+                          <h3><a href="#">{{ user.firstName+"  "+user.lastName }} </a></h3>
+                          <div *ngIf="user && user.age ; else notAge;" class="age-item">, {{user.age}}<span class="status online"></span></div>
+                          <ng-template #notAge>
+                            <div  class="age-item">, {{user.age}}<span class="status online"></span></div>
+                          </ng-template>
+                        </div>
+                        <div class="star-v">
+                          <div class="list-star">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                          </div>
+                          
+                        </div>
+                        <div class="Language-model">{{'LANGUAGE'|translate}}: {{ user.languages  }}</div>
+                        <div class="city-model">{{'City'|translate}}: {{ user.location.city }}</div>
+                      </div>
+                </div>
+
+            
+            </div>
+            <div class="col-sm-7 col-md-8">
+                <div class="box-detail">
+                    <div class="title-box-detail">
+                        <i class="fa fa-info"></i>  {{'notification'|translate}}
+                    </div>
+                    <div class="body-box-detail" *ngIf="notifications.length">
+                        <ul *ngFor="let notification of notifications  | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize " class="list-nofication">
+                            <li>
+                                <img src="{{notification.imageUrl">
+                                <strong>{{notification.fromName}}</strong> {{notification.action}}
+                                <span  class="date">{{notification.time}}</span>
+                            </li>
+                        </ul>
+                        <nav aria-label="Page navigation">
+                          <ngb-pagination [collectionSize]="notifications.length" [(page)]="page" [boundaryLinks]="true"></ngb-pagination>
+                        </nav>
+                    </div>
+                    
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<app-footer></app-footer>

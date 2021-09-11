@@ -1,0 +1,22 @@
+<div class="rating-form">
+    <h2>{{'Rating Call'|translate}}</h2>
+    <form [formGroup]="reviewForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <ng-template #t let-fill="fill">
+                <span class="star" [class.full]="fill === 100">
+                  <span class="half" [style.width.%]="fill">&#9733;</span>&#9733;
+                </span>
+              </ng-template>
+            <ngb-rating [formControl]="ratingFormCtrl" [starTemplate]="t" formControlName="ratingFormCtrl" [(rate)]="rating" [max]="5">
+               
+            </ngb-rating>
+            <div class="form-text small">
+              <div *ngIf="ratingFormCtrl.valid" class="text-success">{{'Thanks!|translate'}}</div>
+              <div *ngIf="ratingFormCtrl.errors?.required" class="text-danger">{{'Please rate this call|translate'}}</div>
+            </div>
+             <span>({{'Choose Rating'|translate}}) {{ratingFormCtrl.value}}</span>
+        </div>
+        <button mat-raised-button  (click)="onNoClick()">{{'No Thanks'|translate}}</button>
+        <button  mat-raised-button color="accent"  [disabled]="loading"  >{{'Submit'|translate}}</button>
+    </form>
+</div>

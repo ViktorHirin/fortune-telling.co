@@ -1,0 +1,23 @@
+<div class="item-chat" *ngIf="message.type == 'text'">
+    <div *ngIf="message.from['id'] == user.id " class="pic-item-chat"><img src="{{imageHelper.getAvatarLinkV2(user,user.avatarPath,'thumbnail')}}"></div>
+    <div *ngIf="message.from['id'] != user.id" class="pic-item-chat"><img src="{{imageHelper.getAvatarLinkV2(to,to.avatarPath,'thumbnail')}}"></div>
+    <div class="txt-item-chat">
+        {{message.text}}
+    </div>
+    <span class="date-chat">{{message.createdAt | date:'shortTime'}}</span>
+</div>
+<div class="item-chat" *ngIf="message.type == 'image' ">
+    <div *ngIf="message.from['id'] == user.id" class="pic-item-chat"><img src="{{imageHelper.getAvatarLinkV2(user,user.avatarPath,'thumbnail')}}"></div>
+    <div *ngIf="message.from['id'] != user.id" class="pic-item-chat"><img src="{{imageHelper.getAvatarLinkV2(to,to.avatarPath,'thumbnail')}}"></div>
+    <div class="txt-item-chat">
+        <img src="{{message.imageLink}}" alt="" srcset="" class="preview-Img">
+    </div>
+    <div class="txt-item-chat" *ngIf="message.isNew">
+    <mat-progress-spinner *ngIf="uploaded  && message.file.progress != 100" 
+        class="progress-upload"
+        [diameter]="20"
+        [value]="message.file.progress">
+    </mat-progress-spinner>  
+    </div>
+    <span class="date-chat">{{message.createdAt | date:'shortTime'}}</span>
+</div>

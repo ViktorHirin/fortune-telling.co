@@ -1,0 +1,13 @@
+var express = require('express');
+var controller = require('./index.controller');
+var router = express.Router();
+var auth = require('../../auth.service');
+var multipart = require('connect-multiparty');
+var multipartMiddleware = multipart();
+router.get('/', auth.isAdmin(),controller.getAllModels);
+router.get('/all',auth.isAdmin(), controller.allModel);
+router.get('/search',auth.isAdmin(),controller.getSearch);
+router.delete('/:id',auth.isAdmin(),controller.deleteModel);
+router.put('/audio',[auth.isAuthenticated(),multipartMiddleware],controller.putAudio);
+router.put('/admin/audio',[auth.isAdmin(),multipartMiddleware],controller.putAudiobyAdmin);
+module.exports = router;

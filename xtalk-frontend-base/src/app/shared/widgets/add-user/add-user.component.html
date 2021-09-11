@@ -1,0 +1,67 @@
+<h3>{{'Enter new account'|translate}}</h3>
+<div class="row">
+    <div class="col-sm-12">
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+                <label for="firstName">{{'First Name'|translate}}</label>
+                <input mat-input type="text" formControlName="firstName" [(ngModel)]="user.firstName"
+                    class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && registerForm.controls['firstName'].errors }" />
+                <mat-error *ngIf="registerForm.controls['firstName'].errors?.required && submitted">{{'First Name is required'|translate}}</mat-error>
+            </div>
+            <div class="form-group">
+                <label for="lastName">{{'Last Name'|translate}}</label>
+                <input mat-input type="text" formControlName="lastName" [(ngModel)]="user.lastName" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && registerForm.controls['lastName'].errors }" />
+                <mat-error *ngIf="registerForm.controls['lastName'].errors?.required && submitted ">{{'Last Name is required'|translate}}</mat-error>
+            </div>
+            <div class="form-group">
+                <label for="email">{{'Email'|translate}}</label>
+                <input mat-input type="text" formControlName="email" class="form-control" [(ngModel)]="user.email"
+                    [ngClass]="{ 'is-invalid': submitted && registerForm.controls['email'].errors }" />
+                <mat-error *ngIf="registerForm.controls['email'].errors?.email && submitted">{{'The format of the email address is not correct'|translate}}</mat-error>
+                <mat-error *ngIf="registerForm.controls['email'].errors?.required && submitted">{{'Email is requỉed'|translate}}
+                </mat-error>
+            </div>
+            <div class="form-group">
+                <label for="password">{{'Password'|translate}}</label>
+                <input mat-input type="password" formControlName="password" class="form-control"
+                    [(ngModel)]="user.password"
+                    [ngClass]="{ 'is-invalid': submitted && registerForm.controls['password'].errors }" />
+                <mat-error *ngIf="registerForm.controls['password'].errors?.required && submitted">{{'Password is required'|translate}}
+                </mat-error>
+                <mat-error *ngIf="registerForm.controls['password'].errors?.minlength && submitted">{{'Password must be at least 6 characters'|translate}}</mat-error>
+            </div>
+            <div class="form-group">
+                <label for="prePassword">{{'Confirm Password'|translate}}</label>
+                <input type="password" formControlName="prePassword" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && registerForm.controls['prePassword'].errors }" />
+                <mat-error *ngIf="registerForm.controls['prePassword'].errors?.required && submitted">{{'Confirm Password is required'|translate}}</mat-error>
+                <mat-error *ngIf="registerForm.errors?.notSame && submitted">{{'Confirm Password must be same password'|translate}}
+                </mat-error>
+            </div>
+            <div class="form-group" *ngIf='data.role == "clairvoyant" '>
+                <label>{{'Phone'|translate}}</label>
+                <div class="col-sm-7 phone-flat">
+                    <ngx-intl-tel-input [inputId]="'adsasd'" [cssClass]="'custom'"
+                        [preferredCountries]="preferredCountries" [enableAutoCountrySelect]="true"
+                        [enablePlaceholder]="true" [searchCountryFlag]="true"
+                        [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+                        [selectFirstCountry]="false" [selectedCountryISO]="CountryISO.UnitedStates" [maxLength]="15"
+                        [tooltipField]="TooltipLabel.Name" [phoneValidation]="true" [(ngModel)]="user.phone"
+                        [separateDialCode]="separateDialCode" name="phone" formControlName="phoneFormControl">
+                    </ngx-intl-tel-input>
+                    <mat-error *ngIf="registerForm.controls['phoneFormControl'].errors && submitted">{{'Phone number invalid'|translate}}</mat-error>
+                    <mat-error *ngIf="registerForm.controls['phoneFormControl'].errors?.required && submitted">{{'Phone number is required'|translate}}</mat-error>
+                </div>
+            </div>
+            <div class="form-group">
+                <button [disabled]="loading" class="btn btn-primary">
+                    <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                    {{'Register'|translate}}
+                </button>
+                <a (click)="onCloseClick()" class="btn btn-link">{{'Cancel'|translate}}</a>
+            </div>
+        </form>
+    </div>
+</div>

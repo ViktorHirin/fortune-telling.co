@@ -1,0 +1,238 @@
+<app-navigation></app-navigation>
+<div class="model-home">
+  <div class="container" *ngIf="user">
+    <div class="top-profile">
+      <div class="name-left" *ngIf='!editFullName'>
+        {{ user.firstName + " " + user.lastName }}
+        <i class="fa fa-check-circle color-green"></i>
+        <a class="edit" (click)="editName()"><i class="fa fa-pencil"></i></a>
+      </div>
+      <div class="name-left d-flex" *ngIf='editFullName' [formGroup]="proflieFormGroup">
+        <input matInput formControlName="fristNameFormControl" [errorStateMatcher]="matcher" placeholder="{{'Frist Name'|translate}}"
+          [(ngModel)]="user.firstName">
+        <input matInput formControlName="lastNameFormControl" [errorStateMatcher]="matcher" placeholder="{{'Last Name'|translate}}"
+          [(ngModel)]="user.lastName">
+        <button [disabled]="loading" mat-raised-button color="accent" (click)="changeFullName()"
+          ngclass="btn btn-danger btn-sm">{{'Save'|translate}}</button>
+      </div>
+      <div class="phone-right">
+
+        <i *ngIf="user.twilioNumber" class="fa fa-phone color-pink"></i>
+        {{ user.twilioNumber}}
+      </div>
+    </div>
+    <hr>
+    <div class="row">
+      <div class="col-sm-4 preivew avatarImg pic-model">
+        <img  src="{{user.avatarUrl||'assets/images/img.jpg'}}" alt="" *ngIf="!imageChangedEvent">
+        <div [hidden]="!imageChangedEvent">
+          <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true" [aspectRatio]="35 / 45" 
+          format="png" (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded()"
+          (cropperReady)="cropperReady()" (loadImageFailed)="loadImageFailed()">
+        </image-cropper> 
+        </div>      
+        <h5>{{'Avatar Upload'|translate}}</h5>
+        <input class="btn btn-danger btn-block upload-btn" type="file" name="image" (change)="fileProgress($event)"
+          accept="image/x-png,image/gif,image/jpeg">
+        <p class="alert alert-warning">*{{'Please upload image of dimension 350px*450px'|translate}}</p>
+        <div class="doNotDisturb" *ngIf="user.role == 'model'">
+          <mat-slide-toggle *ngIf="user.doNotDisturb;else notdoNotDisturb" [(ngModel)]="user.doNotDisturb" checked>{{'Do Not Disturb!'|translate}}</mat-slide-toggle>
+          <ng-template #notdoNotDisturb>
+            <mat-slide-toggle [(ngModel)]="user.doNotDisturb">{{'Do Not Disturb!'|translate}}</mat-slide-toggle>
+          </ng-template>
+        </div>
+        <div class="audio-detail" *ngIf="user.role == 'model'">
+          <audio src="{{user.audioUrl}}" controls></audio>
+        </div>
+        <h5 *ngIf="user.role == 'model'">{{'Audio Upload'|translate}}</h5>
+        <button *ngIf="user.role == 'model'" mat-raised-button color="accent" (click)="openUploadAudio()"
+          ngclass="btn btn-danger btn-sm">{{'Upload'|translate}}</button>
+
+      </div>
+      <div class="col-sm-8">
+        <form [formGroup]="proflieFormGroup">
+          <div class="title-1">
+            <h3>{{'Biography'|translate}}</h3>
+            <div class="pull-right">
+              <button [disabled]="loading" mat-raised-button color="accent" (click)="onSubmit()"
+                ngclass="btn btn-danger btn-sm">{{'Save'|translate}}</button>
+            </div>
+          </div>
+          <div class="content-1">
+            <div class="row form-edit">
+              <div class="col-sm-6">
+                <div class="form-group row">
+                  <label class="col-sm-5">{{'Gender'|translate}}:</label>
+                  <div class="col-sm-7">
+                    <mat-form-field appearance="fill">
+                      <mat-label>{{'Gender'|translate}}</mat-label>
+                      <mat-select [(value)]="user.gender">
+                        <mat-option *ngFor="let item of genders" [value]="item.value">
+                          {{ item.name }}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group row">
+                  <label class="col-sm-5">{{'Orientation'|translate}}:</label>
+                  <div class="col-sm-7">
+                    <mat-form-field class="example-full-width">
+                      <mat-label>{{'Orientation'|translate}}</mat-label>
+                      <input matInput formControlName="orientationFormControl" [errorStateMatcher]="matcher"
+                        placeholder="" [(ngModel)]="user.orientation">
+                      <mat-error *ngIf="orientationFormControl.hasError('required')">
+                        {{'Orientation is'|translate}} <strong>{{'required'|translate}}</strong>
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group row">
+                  <label class="col-sm-5">{{'Age'|translate}}:</label>
+                  <div class="col-sm-7">
+                    <mat-form-field class="example-full-width">
+                      <mat-label>{{'Age'|translate}}</mat-label>
+                      <input type="number" matInput formControlName="ageFormControl" [(ngModel)]="user.age"
+                        [errorStateMatcher]="matcher" placeholder="{{'Ex. 18'|translate}}">
+                      <!-- <mat-hint>Errors appear instantly!</mat-hint> -->
+                      <mat-error *ngIf="ageFormControl.hasError('min') && !ageFormControl.hasError('required')">
+                        {{'Age must be between 80 and 18'|translate}}
+                      </mat-error>
+                      <mat-error *ngIf="ageFormControl.hasError('required')">
+                        {{'Age is'|translate}} <strong>{{'required'|translate}}</strong>
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group row">
+                  <label class="col-sm-5">{{'Languages'|translate}}:</label>
+                  <div class="col-sm-7">
+                    <mat-form-field class="example-full-width">
+                      <mat-label>{{'Languages'|translate}}</mat-label>
+                      <input matInput formControlName="languagesFormControl" [errorStateMatcher]="matcher"
+                        placeholder="{{'Ex . ENGLISH, HINDI, JAPAN'|translate}}" [(ngModel)]="user.languages">
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="title-1">
+            <h3>{{'About me'|translate}}</h3>
+            <div class="pull-right">
+              <a (click)="enableAbout()" class="edit edit-about"><i class="fa fa-pencil"></i></a>
+            </div>
+          </div>
+          <div class="content-1">
+            <mat-form-field class="full-width " style="width: 100%;">
+              <textarea matInput [(ngModel)]="user.about" [errorStateMatcher]="matcher"
+                formControlName="aboutFormControl" id="editAbout-text" [disabled]="disableAbout"
+                [(ngModel)]="user.descrpiton"> {{ user.about}}</textarea>
+              <mat-error *ngIf="aboutFormControl.hasError('maxlength')">
+                {{'About is'|translate}} <strong> {{'have max length is'|translate}} {{maxInputLength}}</strong>
+              </mat-error>
+            </mat-form-field>
+            <span class="float-right alert-length">{{user.about.length}}/{{maxInputLength}}</span>
+          </div>
+          <div class="title-1">
+            <h3>{{'Interests'|translate}}:</h3>
+
+          </div>
+          <div class="content-1">
+            <mat-form-field appearance="fill" class="full-width " style="width: 100%;">
+              <input matInput placeholder="{{'Interests'|translate}}" formControlName="interestsCtrl" [(ngModel)]="user.interests"
+                required>
+              <mat-error *ngIf="interestsCtrl.hasError('maxlength')">
+                {{'Interests is'|translate}} <strong> {{'have max length is'|translate}} {{maxInputLength}}</strong>
+              </mat-error>
+            </mat-form-field>
+            <span class="float-right alert-length">{{user.interests.length}}/{{maxInputLength}}</span>
+          </div>
+          <div class="title-1">
+            <h3>{{'Specialities'|translate}}:</h3>
+
+          </div>
+          <div class="content-1">
+            <mat-form-field appearance="fill" class="full-width " style="width: 100%;">
+              <input matInput placeholder="{{'Interests'|translate}}" formControlName="specialitiesCtrl" [(ngModel)]="user.specialities"
+                required>
+              <mat-error *ngIf="specialitiesCtrl.hasError('maxlength')">
+                {{'Specialitie is'|translate}} <strong> {{'have max length is'|translate}} {{maxInputLength}}</strong>
+              </mat-error>
+            </mat-form-field>
+            <span class="float-right alert-length">{{user.specialities.length}}/{{maxInputLength}}</span>
+          </div>
+          <div class="title-1" *ngIf="user.role == 'model'">
+            <h3>{{'Category'|translate}}:</h3>
+
+          </div>
+          <div class="content-1">
+
+            <mat-form-field appearance="fill" class="full-width " style="width: 100%;" *ngIf="user.role == 'model'">
+              <mat-label>{{user.category}}</mat-label>
+              <mat-select [(value)]="user.category">
+                <mat-option value="male">{{'Male'|translate}}</mat-option>
+                <mat-option value="female">{{'Female'|translate}}</mat-option>
+                <mat-option value="couples">{{'couples'|translate}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="title-1">
+            <h3>{{'Contact us'|translate}}</h3>
+            <div class="pull-right">
+              <a (click)="enableAbout()" class="edit"><i class="fa fa-pencil"></i></a>
+            </div>
+          </div>
+          <div class="content-1">
+            <div class="form-group row">
+              <label class="col-sm-5">{{'Base city'|translate}}:</label>
+              <div class="col-sm-7">
+                <mat-form-field class="example-full-width">
+                  <mat-label>{{'City'|translate}}</mat-label>
+                  <input matInput formControlName="cityFormControl" [(ngModel)]="user.location.city"
+                    [errorStateMatcher]="matcher" placeholder="{{'Ex. Chicago IL'|translate}}">
+                  <mat-error *ngIf="cityFormControl.hasError('required')">
+                    {{'City is'|translate}} <strong>{{'required'|translate}}
+                    </strong>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="form-group row" *ngIf="user.role=='model'">
+              <label class="col-sm-5">{{'Phone Number'|translate}}</label>
+              <div class="col-sm-7 phone-flat">
+                <div class="example-full-width">
+                  <ngx-intl-tel-input [inputId]="'adsasd'" [cssClass]="'custom'"
+                    [preferredCountries]="preferredCountries" [enableAutoCountrySelect]="true"
+                    [enablePlaceholder]="true" [searchCountryFlag]="true"
+                    [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+                    [selectFirstCountry]="false" [selectedCountryISO]="CountryISO.UnitedStates" [maxLength]="15"
+                    [tooltipField]="TooltipLabel.Name" [phoneValidation]="true" [(ngModel)]="user.phone"
+                    [separateDialCode]="separateDialCode" name="phone" formControlName="phoneFormControl">
+                  </ngx-intl-tel-input>
+                  <!--             
+                <input matInput formControlName="phoneFormControl" [(ngModel)]="user.phone" [errorStateMatcher]="matcher" placeholder="EX: +16648177912"
+                      > -->
+                  <!-- <div *ngIf="phoneFormControl.hasError('required')">
+                  Phone is <strong>required</strong>
+                </div>
+                <div *ngIf="phoneFormControl.hasError('maxlength')">
+                  Phone is <strong> have max length is 12</strong>
+                </div> -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>

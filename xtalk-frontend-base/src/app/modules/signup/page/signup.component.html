@@ -1,0 +1,80 @@
+<app-navigation></app-navigation>
+<div class="signup-box">
+  <div class="sign-box">
+    <h3>{{'Enter your account'|translate}}</h3>
+    <div class="row">
+      <div class="col-sm-7">
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+          <div class="form-group">
+            <label for="firstName">{{'First Name'|translate}}</label>
+            <input mat-input type="text" formControlName="firstName" class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" />
+            <div *ngIf="submitted && f.firstName.invalid" class="invalid-feedback">
+              <mat-error *ngIf="f.firstName.errors.required">{{'First Name is required'|translate}}</mat-error>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="lastName">{{'Last Name'|translate}}</label>
+            <input mat-input type="text" formControlName="lastName" class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }" />
+            <div *ngIf="submitted && f.lastName.invalid" class="invalid-feedback">
+              <mat-error *ngIf="registerForm.controls['lastName'].errors?.required">{{'Last Name is required'|translate}}</mat-error>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="email">{{'Email'|translate}}</label>
+            <input mat-input type="text" formControlName="email" class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+            <div *ngIf="submitted && registerForm.controls['email'].errors" class="invalid-feedback">
+              <mat-error *ngIf="registerForm.controls['email'].errors?.email">{{'The format of the email address is not correct'|translate}}</mat-error>
+              <mat-error *ngIf="registerForm.controls['email'].errors?.required">{{'The email is required'|translate}}</mat-error>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="password">{{'Password'|translate}}</label>
+            <input mat-input type="password" formControlName="password" class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+            <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+              <mat-error *ngIf="registerForm.controls['password'].errors?.required">{{'Password is required'|translate}}</mat-error>
+              <mat-error *ngIf="registerForm.controls['password'].errors?.minlength">{{'Password must be at least'|translate}}
+                {{passwordMinLength}} {{'characters'|translate}}</mat-error>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="prePassword">{{'Confirm Password'|translate}}</label>
+            <input type="password" formControlName="prePassword" class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && registerForm.errors }" />
+            <div *ngIf="submitted && registerForm.hasError('notSame')" class="invalid-feedback">
+              <mat-error *ngIf="registerForm.hasError('notSame')">{{'Pre-password must be same password'|translate}}</mat-error>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <ngx-recaptcha2 siteKey="{{siteKey}}" (success)="handleSuccess($event)" [size]="size" [hl]="lang"
+              [theme]="theme" [type]="type" formControlName="recaptcha">
+            </ngx-recaptcha2>
+            <button [disabled]="loading" class="btn btn-primary" (click)="onSubmit()">
+              <span *ngIf="loading " class="spinner-border spinner-border-sm mr-1"></span>
+              {{'Register'|translate}}
+            </button>
+            <a routerLink="/login" class="btn btn-link">{{'Cancel'|translate}}</a>
+          </div>
+        </form>
+      </div>
+      <div class="col-sm-5">
+        <ul class="list-2">
+            <li>{{'Fill in the form above'|translate}}</li>
+            <li>{{'Confirm your account from the activation email'|translate}}</li>
+            <li>{{'Login, complete your user profile!'|translate}}</li>
+            <li>{{'Get clients !'|translate}}</li>
+            <li> {{'For Clairvoyant registration'|translate}} - <a [routerLink]='["/register-model"]'>{{'please click here'|translate}}</a></li>
+        </ul>
+        {{'If you have any questions, please'|translate}} <a (click)="openContact()" href="javascript: return false;" style="color:#007bff">{{'contact us'|translate}}</a>.
+        <div class="img-details">
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>

@@ -1,0 +1,18 @@
+
+	<div class="title-bg-grey">
+		<div class="title-main">{{'Become a'|translate}} <span>{{'Clairvoyant'|translate}}</span></div>
+	</div>
+	<div class="about-home"  #aboutContainer id="aboutContainer">
+		<div class="row" style="margin-right: 0px">
+		<div class="col-md-7 bg-cover"[style.backgroundImage]="'url('+ image +')'" #bgEle id="bgEle" >
+			<img src="images/img1.jpg">
+		</div>
+		<div class="col-md-5" >
+			<h3>{{'Join us as Clairvoyant'|translate}}</h3>
+			<div class="txt-about-home">
+			<p>{{'Become a Clairvoyant'|translate}}. {{'Talk with your client on phone, fortune-telling.co is an exciting way to make good money from the comfort and safety of your home.'|translate}} {{'All you need is a computer, a stable internet connection.'|translate}}</p>
+			</div>
+			<a [routerLink]="['/register-model']" class="join-us">{{'JOIN US'|translate}}</a>
+		</div>
+		</div>
+	</div>

@@ -1,0 +1,10 @@
+var express = require('express');
+var controller = require('./index.controller');
+var auth = require('../../auth.service');
+var router = express.Router();
+var multipart = require('connect-multiparty');
+var multipartMiddleware = multipart();
+router.put('/',[auth.isAuthenticated(),multipartMiddleware], controller.postGallery);
+router.get('/:id',controller.getGallery);
+router.delete('/:id',auth.isAuthenticated(),controller.deleteGallery);
+module.exports = router;

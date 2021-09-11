@@ -1,0 +1,87 @@
+<h2 class="title-list text-center">{{'Manager withdraw'|translate}}</h2>
+<br>
+<mat-divider></mat-divider>
+<br>
+<div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px">
+    <div fxFlex="40">
+        <div class="acction-toolbar">
+            <!-- <button  mat-raised-button color="primary" (click)="addNewUser()">Add withdraw</button>
+            <button *ngIf="assigned" mat-raised-button color="accent" (click)="deleteUser(assigned)">Delete withdraw</button> -->
+        </div>
+    </div>
+</div>
+<div fxLayout="row wrap" fxLayoutAlign="space-between center" fxLayoutGap="20px">
+        <div fxFlex="80" fxFlex.lt-md="100" fxLayoutGap="20px" fxLayoutGap.lt-md="10px">
+            <div class="acction-toolbar">
+                <!-- <button  class ="m-2" fxFlex="15" mat-raised-button color="primary" (click)="addNewUser()"><i  class="fa fa-plus mr-1"> </i>Add</button> -->
+                <button *ngIf="assigned" class ="m-2" fxFlex="15" fxFlex.lt-md="35" mat-raised-button color="accent" (click)="rejectList(assigned)"><i  class="fa fa-ban mr-1"></i>{{'Reject'|translate}}</button>
+                <button *ngIf="assigned" fxFlex="15" class ="m-2"  fxFlex.lt-md="35" mat-raised-button color="primary" (click)="approvedList(assigned)"> <i  class="fa fa-check mr-1"></i>{{'Approved'|translate}}</button>
+                <button *ngIf="assigned" fxFlex="15" class ="m-2"  fxFlex.lt-md="35" mat-raised-button color="warn" (click)="deleteList(assigned)"><i  class="fa fa-trash mr-1"></i>{{'Delete'|translate}}</button>
+            </div>
+        </div>
+    <div fxFlex="100">
+        <div class="mat-elevation-z8" class="table-models-list">
+            <mat-table [dataSource]="listWithDraw" matSort >
+                <!-- Checkbox Column -->
+                <ng-container matColumnDef="select">
+                    <mat-header-cell *matHeaderCellDef >
+                        <mat-checkbox (change)="HeaderCheckBoxChanged($event);$event ? masterToggle() : null" 
+                        [checked]="selection.hasValue() && isAllSelected()"
+                        [indeterminate]="selection.hasValue() && !isAllSelected()">
+                        </mat-checkbox>
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let withdraw" >
+                        <mat-checkbox (click)="$event.stopPropagation()"  (change)="CheckBoxChanged($event,withdraw._id);$event ? selection.toggle(withdraw) : null"
+                        [checked]="selection.isSelected(withdraw) || withdraw.IsAssigned">
+                        </mat-checkbox>
+                    </mat-cell>
+                </ng-container>
+                <!-- Name Column -->
+                <ng-container matColumnDef="name" >
+                    <mat-header-cell *matHeaderCellDef mat-sort-header class="mw-15">  {{'Name'|translate}} </mat-header-cell>
+                    <mat-cell *matCellDef="let withdraw" > {{withdraw.userId.firstName}} {{withdraw.userId.lastName}} </mat-cell>
+                </ng-container>
+
+                
+                <!-- Role Column -->
+                <ng-container matColumnDef="amount" >
+                    <mat-header-cell *matHeaderCellDef  > {{'Amount'|translate}}  </mat-header-cell>
+                    <mat-cell *matCellDef="let withdraw"  > {{withdraw.amount}}</mat-cell>
+                </ng-container>
+
+                <!-- Status Column -->
+                <ng-container matColumnDef="status" >
+                    <mat-header-cell *matHeaderCellDef mat-sort-header > {{'Status'|translate}}  </mat-header-cell>
+                    <mat-cell *matCellDef="let withdraw"  > {{withdraw.status}} </mat-cell>
+                </ng-container>
+
+                <!-- Token Column -->
+                <ng-container matColumnDef="date" >
+                    <mat-header-cell *matHeaderCellDef mat-sort-header > {{'Date'|translate}}  </mat-header-cell>
+                    <mat-cell *matCellDef="let withdraw" > {{withdraw.createdAt | date}} </mat-cell>
+                </ng-container>
+                 <!--Email Column -->
+                 <ng-container matColumnDef="email">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header class="email-header"> {{'Email'|translate}} </mat-header-cell>
+                    <mat-cell *matCellDef="let withdraw" class='m-card-title'> {{withdraw.userId.email}}</mat-cell>
+                </ng-container>
+
+                <!-- Action Column-->
+                <ng-container matColumnDef="actions">
+                    <mat-header-cell  *matHeaderCellDef > {{'Actions'|translate}} </mat-header-cell>
+                    <mat-cell *matCellDef="let withdraw"  fxLayout="row wrap"  fxLayout="wrap" >
+                        <!-- <button type="button" class="btn btn-primary" (click)="editUser(withdraw.id)" mat-raised-button color="primary"><mat-icon aria-hidden="false" >edit</mat-icon></button> -->
+                        <button *ngIf="withdraw.status == 'pending'"type="button" class="btn btn-primary" (click)="approved(withdraw._id)"><i class="fa fa-check" aria-hidden="true"></i>
+                        </button>
+                        <button *ngIf="withdraw.status == 'pending'"type="button" class="btn btn-warning" (click)="reject(withdraw._id)" ><i class="fa fa-times" aria-hidden="true"></i> </button>
+                        <button type="button" class="btn btn-danger" (click)="delete(withdraw._id)" ><i class="fa fa-trash" aria-hidden="true"></i> </button>
+                        
+                    </mat-cell>
+                  </ng-container>
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </mat-table>
+        <mat-paginator [pageSizeOptions]="[10, 20,50,100,500]"></mat-paginator>
+        </div>
+    </div>
+</div>

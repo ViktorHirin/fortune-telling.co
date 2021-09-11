@@ -1,0 +1,27 @@
+.container mat-card{
+    margin-top: 20px;
+}
+.full-with-table{
+    width: 100%;
+}
+#table-withdraw{
+    padding:30px 20px;
+}
+.title-list{
+    margin: 30px 0px;
+}
+.table-withdraw h2{
+    padding-top: 1.4rem;
+}
+
+@media all and (max-width:599px)
+{
+    .container mat-card{
+        width: 100%;
+        margin-top: 0px;
+    }
+
+    .container .row{
+        margin: 0 !important;
+    }
+}

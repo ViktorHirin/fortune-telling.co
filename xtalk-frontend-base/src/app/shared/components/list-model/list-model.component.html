@@ -1,0 +1,33 @@
+<div class="model-home">
+  <div class="container">
+    <div class="hea-top-main">
+      <h3>{{'List Clairvoyant'|translate}}</h3>
+      <div class="pull-right">
+        <select (change)="changeFilter($event)">
+          <option value="categories">{{'Choose Filter'|translate}} </option> 
+          <option value="categories">{{'Categories'|translate}} </option>
+          <option value="name">{{'Name'|translate}} </option>
+          <option value="age">{{'Age'|translate}} </option>
+          <option value="languages">{{'Languages'|translate}} </option>
+        </select>
+        <div class="search-filter">
+          <input type="text" name="" placeholder="{{'Search'|translate}}" (keyup)="search($event)">
+          <button><i class="fa fa-search"></i></button>
+        </div>
+      </div>
+    </div>
+    <ul class="row list-model" id="list-model">
+      <ng-container *ngFor="let model of modelList | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize  ">
+        <li class="col-sm-5 col-md-3 col-6" *ngIf="notMe(model)">
+          <app-model-card [model]="model" fxShow="true" fxShow="false" fxShow.lt-md="false"></app-model-card>
+          <app-model-card [model]="model" size="medium"  fxShow.lt-md="true" fxShow.lt-sm="false"  ></app-model-card>
+          <app-model-card [model]="model" size="thumbnail" fxShow="false" fxShow.lt-md="false" fxShow.lt-sm="true" ></app-model-card>
+        </li>
+      </ng-container>
+    </ul>
+    <!-- <nav aria-label="Page navigation"> -->
+    <ngb-pagination class="d-flex justify-content-center" (pageChange)="pageChange($event)"
+      [collectionSize]="totalModel" [(page)]="page" [pageSize]="pageSize"></ngb-pagination>
+    <!-- </nav> -->
+  </div>
+</div>

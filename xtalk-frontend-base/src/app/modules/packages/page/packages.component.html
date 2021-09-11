@@ -1,0 +1,69 @@
+<h2 class="title-list text-center">{{'Manager Packages'|translate}}</h2>
+<br>
+<mat-divider></mat-divider>
+<br>
+<div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px">
+    <div fxFlex="100">
+        <div fxLayout="row" fxLayoutAlign="space-between center" clas="m-2" fxLayoutGap="20px">
+            <div fxFlex="80" fxLayoutGap="20px">
+                <div class="acction-toolbar">
+                    <button  class ="m-2" fxFlex="15" mat-raised-button color="primary" (click)="addPackage()"><i  class="fa fa-plus mr-1"> </i>{{'Add Package'|translate}} </button>
+                </div>
+            </div>
+        </div>
+        <div class="mat-elevation-z8">
+            <mat-table [dataSource]="listPackages" matSort >
+                <!-- Checkbox Column -->
+                <ng-container matColumnDef="select">
+                    <mat-header-cell *matHeaderCellDef>
+                        <mat-checkbox (change)="HeaderCheckBoxChanged($event);$event ? masterToggle() : null" 
+                        [checked]="selection.hasValue() && isAllSelected()"
+                        [indeterminate]="selection.hasValue() && !isAllSelected()">
+                        </mat-checkbox>
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let user">
+                        <mat-checkbox (click)="$event.stopPropagation()" (change)="CheckBoxChanged($event,user.id);$event ? selection.toggle(user) : null"
+                        [checked]="selection.isSelected(user) || user.IsAssigned">
+                        </mat-checkbox>
+                    </mat-cell>
+                </ng-container>
+                <!-- First Name Column -->
+                <ng-container matColumnDef="name">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>{{'Name'|translate}} </mat-header-cell>
+                    <mat-cell *matCellDef="let package"> {{package.name}} </mat-cell>
+                </ng-container>
+
+                <!--Last  Name Column -->
+                <ng-container matColumnDef="price">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> {{'Price'|translate}} </mat-header-cell>
+                    <mat-cell *matCellDef="let package"> {{package.price}}</mat-cell>
+                </ng-container>
+
+                 <!--Email Column -->
+                 <ng-container matColumnDef="token">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> {{'Token'|translate}} </mat-header-cell>
+                    <mat-cell *matCellDef="let package"> {{package.token}}</mat-cell>
+                </ng-container>
+
+               
+                <!-- Status Column -->
+                <ng-container matColumnDef="flexformId">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> {{'Flex FormId'|translate}}  </mat-header-cell>
+                    <mat-cell *matCellDef="let package"> {{package.flexformId}} </mat-cell>
+                </ng-container>
+                <!-- Action Column-->
+                <ng-container matColumnDef="actions">
+                    <mat-header-cell  *matHeaderCellDef > {{'Actions'|translate}} </mat-header-cell>
+                    <mat-cell *matCellDef="let packageItem"  fxLayout="row wrap" >
+                        <button type="button" class="btn btn-primary" (click)="editPackage(packageItem)" class="btn btn-primary"><i  class="fa fa-pencil"></i></button>
+                        <button type="button" class="btn btn-accent" (click)="deletePackage(packageItem._id)" class="btn btn-danger"><i  class="fa fa-trash"></i></button>
+                        
+                    </mat-cell>
+                  </ng-container>
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </mat-table>
+        <mat-paginator [pageSizeOptions]="[10, 20,50,100,500]"></mat-paginator>
+        </div>
+    </div>
+</div>
